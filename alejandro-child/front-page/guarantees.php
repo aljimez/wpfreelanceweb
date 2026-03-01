@@ -6,32 +6,42 @@
 <section class="guarantees-section" style="padding: 100px 0; background: #fff;">
     <div class="container">
         <!-- Garantías Realistas -->
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 4rem; margin-bottom: 8rem;">
-            <div data-aos="fade-right">
-                <p style="color: var(--primary); font-weight: 800; text-transform: uppercase; margin-bottom: 1rem;">Cero Riesgo</p>
-                <h2 style="font-size: 2.5rem; margin-bottom: 2rem;">MI COMPROMISO ES TU ÉXITO</h2>
-                <div style="background: var(--bg-alt); padding: 2rem; border-left: 5px solid var(--primary); border-radius: 4px;">
-                    <p style="font-weight: 700; font-size: 1.1rem; margin-bottom: 1rem;">Garantía PageSpeed</p>
-                    <p style="font-size: 0.95rem; color: var(--text-light);">Si en proyectos de optimización no alcanzamos los objetivos marcados (<strong>PageSpeed >80/90</strong>) en 60 días, te devuelvo el <strong>50% de tu inversión</strong> o trabajo gratis hasta lograrlo.</p>
+        <div class="row align-items-center g-5 mb-5">
+            <div class="col-lg-6" data-aos="fade-right">
+                <p class="text-primary fw-bold text-uppercase mb-2">Cero Riesgo</p>
+                <h2 class="display-5 fw-bold mb-4">MI COMPROMISO ES TU ÉXITO</h2>
+                <div class="p-4 bg-light shadow-sm border-start border-primary border-5 rounded-3">
+                    <p class="h5 fw-bold mb-3">Garantía PageSpeed</p>
+                    <p class="text-muted mb-0">Si en proyectos de optimización no alcanzamos los objetivos marcados (<strong>PageSpeed >80/90</strong>) en 60 días, te devuelvo el <strong>50% de tu inversión</strong> o trabajo gratis hasta lograrlo.</p>
                 </div>
             </div>
-            <div data-aos="fade-left" style="display: flex; flex-direction: column; justify-content: center;">
-                <ul style="list-style: none; padding: 0;">
-                    <li style="margin-bottom: 1.5rem; display: flex; gap: 1rem; align-items: flex-start;">
-                        <span style="background: var(--primary); color: #000; padding: 5px; border-radius: 50%; font-size: 0.8rem; min-width: 24px; text-align: center;">✓</span>
-                        <p><strong>Migraciones SEO:</strong> Cero pérdida de tráfico orgánico garantizada o corrección técnica sin coste adicional.</p>
+            <div class="col-lg-6" data-aos="fade-left">
+                <ul class="list-unstyled">
+                    <li class="mb-4 d-flex gap-3 align-items-start">
+                        <span class="bg-primary text-dark rounded-circle d-flex align-items-center justify-content-center p-2 mt-1" style="width: 32px; height: 32px; min-width: 32px;">✓</span>
+                        <div>
+                            <p class="fw-bold mb-1">Migraciones SEO</p>
+                            <p class="text-muted small mb-0">Cero pérdida de tráfico orgánico garantizada o corrección técnica sin coste adicional.</p>
+                        </div>
                     </li>
-                    <li style="margin-bottom: 1.5rem; display: flex; gap: 1rem; align-items: flex-start;">
-                        <span style="background: var(--primary); color: #000; padding: 5px; border-radius: 50%; font-size: 0.8rem; min-width: 24px; text-align: center;">✓</span>
-                        <p><strong>Sin Ataduras:</strong> El primer mes de mantenimiento es para conocernos. Si no estás convencido, cancelas sin preguntas.</p>
+                    <li class="mb-4 d-flex gap-3 align-items-start">
+                        <span class="bg-primary text-dark rounded-circle d-flex align-items-center justify-content-center p-2 mt-1" style="width: 32px; height: 32px; min-width: 32px;">✓</span>
+                        <div>
+                            <p class="fw-bold mb-1">Sin Ataduras</p>
+                            <p class="text-muted small mb-0">El primer mes de mantenimiento es para conocernos. Si no estás convencido, cancelas sin preguntas.</p>
+                        </div>
                     </li>
-                    <li style="margin-bottom: 1.5rem; display: flex; gap: 1rem; align-items: flex-start;">
-                        <span style="background: var(--primary); color: #000; padding: 5px; border-radius: 50%; font-size: 0.8rem; min-width: 24px; text-align: center;">✓</span>
-                        <p><strong>Soporte 1-to-1:</strong> Sin tickets genéricos. Hablas de tú a tú conmigo por los canales de tu plan (Email, WhatsApp o Slack).</p>
+                    <li class="mb-0 d-flex gap-3 align-items-start">
+                        <span class="bg-primary text-dark rounded-circle d-flex align-items-center justify-content-center p-2 mt-1" style="width: 32px; height: 32px; min-width: 32px;">✓</span>
+                        <div>
+                            <p class="fw-bold mb-1">Soporte 1-to-1</p>
+                            <p class="text-muted small mb-0">Sin tickets genéricos. Hablas de tú a tú conmigo por los canales de tu plan (Email, WhatsApp o Slack).</p>
+                        </div>
                     </li>
                 </ul>
             </div>
         </div>
+
 
         <?php /*
         <!-- Bundles Irresistibles -->

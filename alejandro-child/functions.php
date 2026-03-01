@@ -13,6 +13,10 @@ function alejandro_child_enqueue_styles() {
     // Activos de Calendly (centralizados en el Child Theme)
     wp_enqueue_style( 'calendly-widget', 'https://assets.calendly.com/assets/external/widget.css' );
     wp_enqueue_script( 'calendly-script', 'https://assets.calendly.com/assets/external/widget.js', array(), null, true );
+    
+    // Bootstrap 5
+    wp_enqueue_style( 'bootstrap-css', 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css' );
+    wp_enqueue_script( 'bootstrap-js', 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js', array(), null, true );
 }
 add_action( 'wp_enqueue_scripts', 'alejandro_child_enqueue_styles' );
 

@@ -14,70 +14,32 @@
     --border-color: #e2e8f0;
 }
 
-/* Navigation Menu */
-.site-header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 10000;
-    background: rgba(255, 255, 255, 0.95);
+/* Base Adjustments for fixed navbar */
+main {
+    padding-top: 80px;
+}
+
+/* Bootstrap Navbar Overrides */
+.navbar {
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
-    border-bottom: 1px solid var(--border-color);
-    padding: 1rem 0;
-    transition: all 0.3s ease;
 }
 
-.site-header .container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.logo {
-    font-family: 'Outfit', sans-serif;
+.navbar-brand.logo {
     font-size: 1.5rem;
     font-weight: 800;
-    color: var(--secondary);
-    text-decoration: none;
 }
 
-.logo span {
-    color: var(--primary);
-}
-
-.main-navigation ul {
-    list-style: none;
-    display: flex;
-    gap: 2rem;
-    align-items: center;
-}
-
-.main-navigation a {
-    text-decoration: none;
-    color: var(--text-dark);
+.nav-link {
     font-weight: 600;
     font-size: 0.85rem;
     text-transform: uppercase;
     letter-spacing: 0.5px;
-    transition: color 0.3s ease;
+    padding: 0.5rem 1rem !important;
 }
 
-.main-navigation a:hover {
-    color: var(--primary);
-}
-
-.nav-cta {
-    background: var(--secondary);
-    color: #fff !important;
-    padding: 0.6rem 1.2rem;
-    border-radius: 6px;
-    font-size: 0.8rem !important;
-}
-
-.nav-cta:hover {
-    background: #000;
+.nav-link:hover {
+    color: var(--primary) !important;
 }
 
 * {
@@ -101,6 +63,39 @@ h4 {
     font-family: 'Outfit', sans-serif;
     color: var(--secondary);
     line-height: 1.2;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+/* Fluid Typography with Bootstrap Overrides */
+h1,
+.display-1,
+.display-2,
+.display-3 {
+    font-size: clamp(2rem, 8vw, 4.5rem);
+}
+
+h2,
+.display-4,
+.display-5 {
+    font-size: clamp(1.6rem, 6vw, 2.8rem);
+    line-height: 1.1;
+}
+
+h3,
+.display-6 {
+    font-size: clamp(1.4rem, 5vw, 2rem);
+}
+
+h4 {
+    font-size: clamp(1.1rem, 4vw, 1.6rem);
+}
+
+.section-title {
+    font-size: clamp(1.6rem, 6vw, 2.8rem) !important;
+    margin-bottom: 2.5rem !important;
+    font-weight: 700;
+    line-height: 1.1;
 }
 
 .container {
@@ -111,7 +106,9 @@ h4 {
 
 /* Sections */
 section {
-    padding: 100px 0;
+    padding: clamp(60px, 10vh, 100px) 0;
+    overflow-x: hidden;
+    /* Prevent overflow at section level */
 }
 
 /* Buttons */
@@ -147,43 +144,41 @@ section {
     background: #000;
 }
 
+/* Grid sections updated to Bootstrap, removing manual overrides if redundant */
 /* Hero Section */
 .hero-section {
-    padding: 180px 0 80px;
-    background: var(--bg-light);
-}
-
-.hero-section .container {
+    position: relative;
+    padding: 100px 0;
+    background: #ffffff;
+    min-height: 80vh;
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    gap: 4rem;
 }
 
-.hero-content {
-    flex: 1;
+/* Hero Content adjustments */
+.hero-content h1 {
+    font-size: calc(2rem + 2vw);
+    /* Responsive font size */
+    font-weight: 800;
+    margin-bottom: 2rem;
 }
 
 .hero-content h1 {
-    font-size: 4.5rem;
     font-weight: 800;
     margin-bottom: 2rem;
 }
 
 .hero-content p {
-    font-size: 1.2rem;
+    font-size: 1.25rem;
     color: var(--text-light);
-    max-width: 500px;
     margin-bottom: 2rem;
 }
 
 .hero-cta-box {
-    flex: 1;
     background: var(--primary);
-    padding: 3rem;
-    border-radius: 4px;
-    /* Slightly rounded like Image 1 */
     color: #000;
+    padding: clamp(1.5rem, 5vw, 3rem) !important;
+    /* Smaller padding on mobile */
 }
 
 .hero-cta-box h2 {
@@ -218,20 +213,16 @@ section {
 
 .section-title {
     font-size: 2.5rem;
-    margin-bottom: 1rem;
+    margin-bottom: 3rem;
     font-weight: 700;
 }
 
-.services-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 3rem;
-    margin-top: 4rem;
+.service-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.service-card {
-    background: none;
-    padding: 0;
+.service-card:hover {
+    transform: translateY(-5px);
 }
 
 .service-icon {
@@ -241,27 +232,9 @@ section {
     color: var(--primary);
 }
 
-.service-card h3 {
-    font-size: 1.25rem;
-    margin-bottom: 1rem;
-    text-transform: uppercase;
-}
-
-.service-card p {
-    color: var(--text-light);
-    font-size: 0.95rem;
-}
-
 /* Method/Steps */
 .method-section {
     background: var(--white);
-}
-
-.method-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 4rem;
-    margin-top: 4rem;
 }
 
 .method-item {
@@ -278,12 +251,6 @@ section {
 /* Pricing */
 .pricing-section {
     background: var(--bg-alt);
-}
-
-.pricing-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 2rem;
 }
 
 .pricing-card {
@@ -323,36 +290,6 @@ section {
     font-size: 0.9rem;
 }
 
-/* Testimonials */
-.testimonials-section {
-    background: var(--white);
-    text-align: center;
-}
-
-.testimonial-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 2rem;
-    margin-top: 4rem;
-}
-
-.testimonial-card {
-    background: var(--bg-alt);
-    padding: 2rem;
-    border-radius: 8px;
-    position: relative;
-}
-
-.testimonial-card blockquote {
-    font-style: italic;
-    color: var(--text-light);
-    margin-bottom: 1.5rem;
-}
-
-.testimonial-author {
-    font-weight: 700;
-}
-
 /* WhatsApp Floating Button */
 .whatsapp-float {
     position: fixed;
@@ -386,35 +323,13 @@ section {
     fill: currentColor;
 }
 
-/* Responsive */
+/* Responsive Styles Handled by Bootstrap */
 @media (max-width: 992px) {
-    .container {
-        padding: 0 1.5rem;
-    }
-
-    .hero-section .container {
-        flex-direction: column;
-        text-align: center;
-    }
-
-    .hero-content h1 {
-        font-size: 3rem;
-    }
-
-    .services-grid,
-    .pricing-grid,
-    .testimonial-grid,
-    .method-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .whatsapp-float {
-        bottom: 20px;
-        right: 20px;
-        width: 50px;
-        height: 50px;
+    main {
+        padding-top: 70px;
     }
 }
+
 
 /* Contact Form 7 Styles */
 .wpcf7-form {
@@ -539,5 +454,295 @@ section {
         flex-direction: column;
         text-align: center;
         gap: 1rem;
+    }
+}
+
+/* FAQ Section handled by Bootstrap */
+.faq-section {
+    background: var(--bg-alt);
+}
+
+/* Comparison Table Responsive Fixes */
+.table-responsive {
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+}
+
+.comparison-table td,
+.comparison-table th {
+    white-space: nowrap;
+    /* Prevent text wrapping for cleaner table scroll */
+    vertical-align: middle;
+}
+
+@media (max-width: 768px) {
+
+    .comparison-table td,
+    .comparison-table th {
+        padding: 1rem !important;
+        font-size: 0.85rem;
+    }
+}
+
+.faq-container {
+    max-width: 800px;
+    margin: 4rem auto 0;
+}
+
+.faq-item {
+    background: var(--white);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    overflow: hidden;
+}
+
+.faq-question {
+    padding: 1.5rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    font-weight: 700;
+    color: var(--secondary);
+    transition: all 0.3s ease;
+}
+
+.faq-question:hover {
+    background: rgba(var(--primary-rgb), 0.05);
+}
+
+.faq-answer {
+    padding: 0 2rem;
+    max-height: 0;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    color: var(--text-light);
+    font-size: 0.95rem;
+}
+
+.faq-item.active .faq-answer {
+    padding: 0 2rem 1.5rem;
+    max-height: 500px;
+}
+
+.faq-icon {
+    font-size: 1.2rem;
+    transition: transform 0.3s ease;
+}
+
+.faq-item.active .faq-icon {
+    transform: rotate(45deg);
+}
+
+/* Updated Portfolio Result Text style */
+.portfolio-results {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px dashed var(--border-color);
+    color: var(--secondary);
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+/* Responsive clean up */
+@media (max-width: 992px) {
+    .row>* {
+        margin-bottom: 1rem;
+    }
+}
+
+/* --- ADVANCED CONVERSION FEATURES --- */
+
+/* Exit-Intent Popup */
+.exit-popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 20000;
+    backdrop-filter: blur(5px);
+}
+
+.exit-popup.active {
+    display: flex;
+}
+
+.exit-popup-content {
+    background: var(--white);
+    max-width: 500px;
+    width: 90%;
+    padding: 3rem;
+    border-radius: 12px;
+    text-align: center;
+    position: relative;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+}
+
+.exit-popup-close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: var(--text-light);
+}
+
+.exit-popup h2 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    color: var(--secondary);
+}
+
+.exit-popup p {
+    color: var(--text-light);
+    margin-bottom: 2rem;
+}
+
+/* Dynamic WhatsApp Bubble */
+.whatsapp-bubble {
+    position: fixed;
+    bottom: 100px;
+    right: 30px;
+    background: var(--white);
+    padding: 10px 15px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--secondary);
+    z-index: 9998;
+    display: none;
+    animation: fadeInUp 0.5s ease-out;
+}
+
+.whatsapp-bubble::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    right: 20px;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-top: 10px solid var(--white);
+}
+
+@media (max-width: 480px) {
+    .whatsapp-bubble {
+        display: none !important;
+        /* Hide bubble on very small screens to avoid clutter */
+    }
+}
+
+/* Portfolio Modals */
+.portfolio-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    z-index: 21000;
+    display: none;
+    overflow-y: auto;
+    padding: 50px 0;
+}
+
+.portfolio-modal.active {
+    display: block;
+}
+
+.portfolio-modal-content {
+    background: var(--white);
+    max-width: 900px;
+    width: 95%;
+    margin: 0 auto;
+    border-radius: 12px;
+    padding: 4rem;
+    position: relative;
+}
+
+.modal-close {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    font-size: 2rem;
+    cursor: pointer;
+    color: var(--text-light);
+}
+
+.modal-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    margin-top: 2rem;
+}
+
+.modal-tag {
+    background: var(--primary);
+    color: #000;
+    padding: 4px 12px;
+    border-radius: 50px;
+    font-size: 0.75rem;
+    font-weight: 800;
+    display: inline-block;
+    margin-bottom: 1rem;
+}
+
+.modal-result-box {
+    background: var(--bg-alt);
+    padding: 1.5rem;
+    border-radius: 8px;
+    border-left: 4px solid var(--primary);
+    margin-top: 2rem;
+}
+
+/* Trusted Stack Mini Icons */
+.stack-logos {
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-top: 2rem;
+    opacity: 0.6;
+    filter: grayscale(1);
+    transition: all 0.3s ease;
+}
+
+.stack-logos:hover {
+    opacity: 1;
+    filter: grayscale(0);
+}
+
+.stack-item {
+    font-weight: 800;
+    font-size: 0.9rem;
+    color: var(--text-light);
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (max-width: 768px) {
+    .modal-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .portfolio-modal-content {
+        padding: 2rem;
     }
 }
