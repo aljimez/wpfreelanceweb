@@ -79,6 +79,7 @@ function render_client_details_meta_box( $post ) {
     $website = get_post_meta( $post->ID, '_client_website', true );
     $email = get_post_meta( $post->ID, '_client_email', true );
     $phone = get_post_meta( $post->ID, '_client_phone', true );
+    $city = get_post_meta( $post->ID, '_client_city', true );
     $project_status = get_post_meta( $post->ID, '_client_status', true );
     $service = get_post_meta( $post->ID, '_client_service', true );
     $budget = get_post_meta( $post->ID, '_client_budget', true );
@@ -105,6 +106,10 @@ function render_client_details_meta_box( $post ) {
         <tr class="client-info-row">
             <th><label for="client_phone"><?php _e( 'Teléfono', 'alejandro-child' ); ?></label></th>
             <td><input type="text" id="client_phone" name="client_phone" value="<?php echo esc_attr( $phone ); ?>" class="regular-text"></td>
+        </tr>
+        <tr class="client-info-row">
+            <th><label for="client_city"><?php _e( 'Ciudad', 'alejandro-child' ); ?></label></th>
+            <td><input type="text" id="client_city" name="client_city" value="<?php echo esc_attr( $city ); ?>" class="regular-text"></td>
         </tr>
         <tr class="client-info-row">
             <th><label for="client_status"><?php _e( 'Estado del Proyecto', 'alejandro-child' ); ?></label></th>
@@ -237,6 +242,9 @@ function save_client_details_meta( $post_id ) {
     if ( isset( $_POST['client_phone'] ) ) {
         update_post_meta( $post_id, '_client_phone', sanitize_text_field( $_POST['client_phone'] ) );
     }
+    if ( isset( $_POST['client_city'] ) ) {
+        update_post_meta( $post_id, '_client_city', sanitize_text_field( $_POST['client_city'] ) );
+    }
     if ( isset( $_POST['client_status'] ) ) {
         update_post_meta( $post_id, '_client_status', sanitize_text_field( $_POST['client_status'] ) );
     }
@@ -260,9 +268,10 @@ add_action( 'save_post', 'save_client_details_meta' );
  */
 function set_custom_edit_cliente_columns($columns) {
     $columns['client_service'] = __( 'Servicio', 'alejandro-child' );
+    $columns['client_city'] = __( 'Ciudad', 'alejandro-child' );
     $columns['client_email'] = __( 'Email', 'alejandro-child' );
     $columns['client_status'] = __( 'Estado', 'alejandro-child' );
-    $columns['client_budget'] = __( 'Presupuesto', 'alejandro-child' );
+    $columns['client_considerations'] = __( 'Anotaciones', 'alejandro-child' );
     return $columns;
 }
 add_filter( 'manage_cliente_posts_columns', 'set_custom_edit_cliente_columns' );
@@ -271,6 +280,10 @@ function custom_cliente_column( $column, $post_id ) {
     switch ( $column ) {
         case 'client_email' :
             echo get_post_meta( $post_id , '_client_email' , true ); 
+            break;
+
+        case 'client_city' :
+            echo get_post_meta( $post_id , '_client_city' , true ); 
             break;
 
         case 'client_service' :
@@ -298,9 +311,9 @@ function custom_cliente_column( $column, $post_id ) {
             echo isset($labels[$status]) ? $labels[$status] : $status;
             break;
 
-        case 'client_budget' :
-            $budget = get_post_meta( $post_id , '_client_budget' , true );
-            echo $budget ? $budget . ' €' : '-';
+        case 'client_considerations' :
+            $considerations = get_post_meta( $post_id , '_client_considerations' , true );
+            echo $considerations ? wp_trim_words( $considerations, 10, '...' ) : '-';
             break;
     }
 }
