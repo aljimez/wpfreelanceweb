@@ -771,3 +771,49 @@ main {
         padding: 2rem;
     }
 }
+
+/* --- COURSE PREVIEW SECTION --- */
+.course-section {
+    position: relative;
+    overflow: hidden;
+}
+
+.course-card-preview {
+    border: 1px solid var(--border-color);
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    transform: perspective(1000px) rotateY(-5deg);
+    box-shadow: -20px 20px 60px rgba(0, 0, 0, 0.1);
+}
+
+.course-card-preview:hover {
+    transform: perspective(1000px) rotateY(0deg) translateY(-10px);
+    box-shadow: 0 40px 80px rgba(0, 0, 0, 0.15);
+}
+
+.feature-icon {
+    min-width: 56px;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.course-features div:hover .feature-icon {
+    background: var(--primary) !important;
+    color: #000 !important;
+    transform: scale(1.1);
+}
+
+.shadow-xl {
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+}
+
+.course-section .badge {
+    letter-spacing: 1px;
+}
+
+.course-section .dashicons {
+    color: inherit;
+    line-height: 1;
+}

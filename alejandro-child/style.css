@@ -9,4 +9,94 @@
  Text Domain:  alejandro-child
 */
 
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap');
+
+:root {
+    --primary: #ffb800;
+    --secondary: #2d3436;
+    --text-dark: #1e293b;
+    --text-light: #64748b;
+    --bg-light: #ffffff;
+    --bg-alt: #f8fafc;
+    --border-color: #e2e8f0;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    color: var(--text-dark);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.logo {
+    font-family: 'Outfit', sans-serif;
+}
+
+/* 
+ * ESTILOS GLOBALES PARA TUTOR LMS & TEMA HIJO
+ * --------------------------------------------------------------
+ */
+
+/* Corregir el espaciado superior para que el contenido no quede debajo del menú fixed */
+.tutor-course-single-content-wrapper,
+.tutor-dashboard,
+.tutor-course-index {
+    margin-top: 100px !important;
+}
+
+/* Unificar Tipografía y Colores de Tutor LMS con la marca Alejandro.dev */
+.tutor-course-header-h1 {
+    font-family: 'Outfit', sans-serif !important;
+    font-weight: 800 !important;
+    color: var(--secondary) !important;
+}
+
+/* Estilizar el botón "Enroll Now" para que sea nuestro botón de marca */
+.tutor-btn-enroll,
+.tutor-course-compulsary-field-update_button,
+.tutor-btn-primary {
+    background-color: var(--primary) !important;
+    color: #fff !important;
+    border-radius: 8px !important;
+    font-weight: 700 !important;
+    text-transform: uppercase !important;
+    transition: all 0.3s ease !important;
+    border: none !important;
+    padding: 12px 25px !important;
+}
+
+.tutor-btn-enroll:hover {
+    background-color: #e6a600 !important;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(255, 184, 0, 0.3);
+}
+
+/* Arreglar el menú de navegación superior (Navbar) en páginas de Tutor */
+.navbar-nav .nav-link {
+    font-size: 0.95rem !important;
+    padding: 0.5rem 1rem !important;
+    text-transform: none !important;
+}
+
+/* Ocultar el título repetido del tema padre que sobra en Tutor LMS */
+.tutor-single-course-sidebar .tutor-course-status-label {
+    display: none !important;
+}
+
+/* Mejorar el aspecto de la caja de precio/inscripción */
+.tutor-course-sidebar-card {
+    border-radius: 16px !important;
+    border: 1px solid var(--border-color) !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05) !important;
+    overflow: hidden;
+}
+
+.tutor-course-header-meta {
+    margin-bottom: 20px !important;
+}
+
 /* Aquí puedes añadir tus estilos personalizados que sobreescriban al padre */

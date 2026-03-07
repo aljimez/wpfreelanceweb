@@ -78,6 +78,16 @@ function render_client_details_meta_box( $post ) {
     $hours = get_post_meta( $post->ID, '_client_hours', true );
     $start_date = get_post_meta( $post->ID, '_client_start_date', true );
     $considerations = get_post_meta( $post->ID, '_client_considerations', true );
+    $user_id        = get_post_meta( $post->ID, '_client_user_id', true );
+
+    // Si no tenemos user_id pero sí email, intentamos vincularlo ahora
+    if ( empty($user_id) && !empty($email) ) {
+        $user = get_user_by('email', $email);
+        if ($user) {
+            $user_id = $user->ID;
+            update_post_meta($post->ID, '_client_user_id', $user_id);
+        }
+    }
 
     // CÁLCULO DE RENTABILIDAD: Limpiamos los valores de presupuesto y horas para evitar errores
     $clean_budget = floatval(preg_replace('/[^0-9.]/', '', str_replace(',', '.', (string)$budget)));
@@ -133,6 +143,7 @@ function render_client_details_meta_box( $post ) {
                     <option value="diseno_web" <?php selected( $service, 'diseno_web' ); ?>>Diseño Web</option>
                     <option value="desarrollo_web" <?php selected( $service, 'desarrollo_web' ); ?>>Desarrollo Web</option>
                     <option value="mantenimiento" <?php selected( $service, 'mantenimiento' ); ?>>Mantenimiento</option>
+                    <option value="formacion" <?php selected( $service, 'formacion' ); ?>>Formación / Academia</option>
                     <option value="otros" <?php selected( $service, 'otros' ); ?>>Otros</option>
                 </select>
             </td>
@@ -158,6 +169,41 @@ function render_client_details_meta_box( $post ) {
         <tr class="client-info-row">
             <th><label for="client_start_date"><?php _e( 'Fecha de Inicio', 'alejandro-child' ); ?></label></th>
             <td><input type="date" id="client_start_date" name="client_start_date" value="<?php echo esc_attr( $start_date ); ?>" class="regular-text"></td>
+        </tr>
+        <tr class="client-info-row">
+            <th><label><?php _e( 'Progreso Academia', 'alejandro-child' ); ?></label></th>
+            <td>
+                <?php 
+                if ( $user_id && function_exists('tutor_utils') ) {
+                    $enrolled_courses = tutor_utils()->get_enrolled_courses_by_user($user_id);
+                    
+                    if ( $enrolled_courses && $enrolled_courses->have_posts() ) {
+                        echo '<ul style="margin:0; padding:0; list-style:none;">';
+                        while ( $enrolled_courses->have_posts() ) {
+                            $enrolled_courses->the_post();
+                            $course_id = get_the_ID();
+                            $completed_percent = tutor_utils()->get_course_completed_percent($course_id, $user_id);
+                            
+                            echo '<li style="margin-bottom:8px;">';
+                            echo '<strong>' . get_the_title() . ':</strong> ';
+                            echo '<div style="background:#eee; border-radius:10px; height:12px; width:200px; display:inline-block; vertical-align:middle; margin:0 10px; position:relative; overflow:hidden;">';
+                            echo '<div style="background:var(--primary, #ffb800); height:100%; width:' . $completed_percent . '%; transition: width 0.5s;"></div>';
+                            echo '</div>';
+                            echo '<span>' . $completed_percent . '%</span>';
+                            echo '</li>';
+                        }
+                        echo '</ul>';
+                        wp_reset_postdata();
+                    } else {
+                        echo '<span style="color:#666; font-style:italic;">No se han encontrado cursos iniciados.</span>';
+                    }
+                } else if ( !$user_id ) {
+                    echo '<span style="color:#d63031;">Cliente no vinculado a ningún usuario de la academia.</span>';
+                } else {
+                    echo '<span style="color:#666;">Tutor LMS no está activo.</span>';
+                }
+                ?>
+            </td>
         </tr>
         <tr class="client-info-row">
             <th><label for="client_considerations"><?php _e( 'Anotaciones', 'alejandro-child' ); ?></label></th>
@@ -256,6 +302,7 @@ function set_custom_edit_cliente_columns($columns) {
     $columns['client_service'] = __( 'Servicio', 'alejandro-child' );
     $columns['client_city'] = __( 'Ciudad', 'alejandro-child' );
     $columns['client_status'] = __( 'Estado', 'alejandro-child' );
+    $columns['client_progress'] = __( 'Progreso LMS', 'alejandro-child' ); // Nueva columna
     $columns['client_profitability'] = __( '€/h', 'alejandro-child' );
     $columns['client_considerations'] = __( 'Anotaciones', 'alejandro-child' );
     return $columns;
@@ -274,7 +321,12 @@ function custom_cliente_column( $column, $post_id ) {
 
         case 'client_service' :
             $service = get_post_meta( $post_id , '_client_service' , true );
-            $labels = array('diseno_web' => 'Diseño Web', 'desarrollo_web' => 'Desarrollo Web', 'mantenimiento' => 'Mantenimiento');
+            $labels = array(
+                'diseno_web' => 'Diseño Web', 
+                'desarrollo_web' => 'Desarrollo Web', 
+                'mantenimiento' => 'Mantenimiento',
+                'formacion' => 'Academia'
+            );
             echo isset($labels[$service]) ? $labels[$service] : 'Otros';
             break;
 
@@ -282,6 +334,32 @@ function custom_cliente_column( $column, $post_id ) {
             $status = get_post_meta( $post_id , '_client_status' , true );
             $labels = array('lead' => 'Potencial', 'active' => 'Activo', 'on_hold' => 'Pausa', 'completed' => 'Listo');
             echo isset($labels[$status]) ? $labels[$status] : $status;
+            break;
+
+        case 'client_progress' :
+            $user_id = get_post_meta( $post_id, '_client_user_id', true );
+            if ( $user_id && function_exists('tutor_utils') ) {
+                $enrolled_courses = tutor_utils()->get_enrolled_courses_by_user($user_id);
+                if ( $enrolled_courses && $enrolled_courses->have_posts() ) {
+                    $total_progress = 0;
+                    $count = 0;
+                    while ( $enrolled_courses->have_posts() ) {
+                        $enrolled_courses->the_post();
+                        $total_progress += tutor_utils()->get_course_completed_percent(get_the_ID(), $user_id);
+                        $count++;
+                    }
+                    wp_reset_postdata();
+                    $avg = round($total_progress / $count);
+                    echo "<div style='background:#eee; height:8px; border-radius:4px; overflow:hidden; width:100%; margin-top:5px;'>
+                            <div style='background:var(--primary, #ffb800); width:{$avg}%; height:100%;'></div>
+                          </div>";
+                    echo "<small>{$avg}% medio en {$count} cursos</small>";
+                } else {
+                    echo "-";
+                }
+            } else {
+                echo "-";
+            }
             break;
 
         case 'client_profitability' :

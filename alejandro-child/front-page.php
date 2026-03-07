@@ -117,6 +117,9 @@
         // 4. Metodología (Empatía con el Dolor)
         get_template_part('front-page/method');
 
+        // 4.5 Sección Curso Academia (Autoridad)
+        get_template_part('front-page/course-preview');
+
         // 5. Sección Lead Magnet (Captación de Emails)
         get_template_part('front-page/lead-magnet');
 
