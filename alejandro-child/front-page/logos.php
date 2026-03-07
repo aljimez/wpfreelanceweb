@@ -3,17 +3,16 @@
  * Logos Section - Building Trust with Social Proof
  */
 ?>
-<section class="logos-section" style="padding: 40px 0; background: var(--white); border-bottom: 1px solid var(--border-color);">
-    <div class="container">
-        <p style="text-align: center; color: var(--text-light); font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 2rem;">Tecnología en la que confían academias de éxito</p>
-        <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5 g-4 align-items-center justify-content-center opacity-75 grayscale-filter text-center">
-            <!-- Logos de tecnologías/partners -->
-            <div class="col"><div class="fw-black h5 mb-0">WORDPRESS</div></div>
-            <div class="col"><div class="fw-black h5 mb-0">WOOCOMMERCE</div></div>
-            <div class="col"><div class="fw-black h5 mb-0">LEARNDASH</div></div>
-            <div class="col"><div class="fw-black h5 mb-0">WPROCKET</div></div>
-            <div class="col"><div class="fw-black h5 mb-0">CLOUDFLARE</div></div>
+<section class="aj-stack py-5 border-bottom">
+    <div class="container py-4">
+        <p class="text-center text-uppercase fw-bold opacity-50 mb-5" style="font-size: 0.7rem; letter-spacing: 2px;">Infraestructura de Grado Empresarial para tu Academia</p>
+        <div class="row row-cols-2 row-cols-md-3 row-cols-lg-6 g-4 align-items-center justify-content-center text-center">
+            <div class="col"><div class="stack-item">PHP 8.3 NATIVO</div></div>
+            <div class="col"><div class="stack-item">REDIS CACHE</div></div>
+            <div class="col"><div class="stack-item">CLOUDFLARE ENT.</div></div>
+            <div class="col"><div class="stack-item">STRIPE SECURE</div></div>
+            <div class="col"><div class="stack-item">NGINX OPTIMIZED</div></div>
+            <div class="col"><div class="stack-item">TUTOR LMS PRO</div></div>
         </div>
-
     </div>
 </section>

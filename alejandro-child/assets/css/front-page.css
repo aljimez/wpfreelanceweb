@@ -1,438 +1,212 @@
-/* Front Page Styles - Redesigned based on Inspiration */
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap');
+/* 
+ * ALEJANDRO.DEV - REFACTORED COMPACT DESIGN SYSTEM 
+ * Minimizado para rendimiento y cero conflictos.
+ */
 
+/* 1. VARIABLES (DRY) */
 :root {
     --primary: #ffb800;
-    --primary-rgb: 255, 184, 0;
-    /* Vibrant Yellow/Orange from inspiration */
-    --secondary: #2d3436;
-    --text-dark: #1e293b;
-    --text-light: #64748b;
-    --bg-light: #ffffff;
+    --primary-alt: #e6a600;
+    --dark: #1e293b;
+    --subtle: #64748b;
     --bg-alt: #f8fafc;
-    --white: #ffffff;
-    --border-color: #e2e8f0;
+    --border: #e2e8f0;
+    --shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    --transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
-/* Base Adjustments for fixed navbar */
-main {
-    padding-top: 80px;
-}
-
-/* Bootstrap Navbar Overrides */
-.navbar {
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-}
-
-.navbar-brand.logo {
-    font-size: 1.5rem;
-    font-weight: 800;
-}
-
-.nav-link {
-    font-weight: 600;
-    font-size: 0.85rem;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    padding: 0.5rem 1rem !important;
-}
-
-.nav-link:hover {
-    color: var(--primary) !important;
-}
-
+/* 2. BASE (RESETS) */
 * {
-    margin: 0;
-    padding: 0;
     box-sizing: border-box;
 }
 
-html,
 body {
-    background-color: var(--bg-light);
-    color: var(--text-dark);
     font-family: 'Inter', sans-serif;
     line-height: 1.6;
+    color: var(--dark);
     overflow-x: hidden;
-    width: 100%;
-    position: relative;
 }
 
 h1,
 h2,
 h3,
-h4 {
+h4,
+.font-heading {
     font-family: 'Outfit', sans-serif;
-    color: var(--secondary);
-    line-height: 1.2;
-    word-wrap: break-word;
-    overflow-wrap: break-word;
+    font-weight: 800;
 }
 
-/* Fluid Typography with Bootstrap Overrides */
-h1,
-.display-1,
-.display-2,
-.display-3 {
-    font-size: clamp(2rem, 8vw, 4.5rem);
-}
-
-h2,
-.display-4,
-.display-5 {
-    font-size: clamp(1.6rem, 6vw, 2.8rem);
-    line-height: 1.1;
-    word-break: normal;
-    overflow-wrap: break-word;
-}
-
-h3,
-.display-6 {
-    font-size: clamp(1.4rem, 5vw, 2rem);
-}
-
-h4 {
-    font-size: clamp(1.1rem, 4vw, 1.6rem);
-}
-
-.section-title {
-    font-size: clamp(1.6rem, 6vw, 2.8rem) !important;
-    margin-bottom: 2.5rem !important;
-    font-weight: 700;
-    line-height: 1.1;
-}
-
-.container {
-    max-width: 1240px;
-    margin: 0 auto;
-    padding: 0 1.5rem;
-}
-
-/* Sections */
-section {
-    padding: clamp(60px, 10vh, 100px) 0;
-    position: relative;
-    width: 100%;
-}
-
-main {
-    overflow-x: hidden;
-    width: 100%;
-    position: relative;
-}
-
-/* Fix Bootstrap row overflow when not inside an ideal container */
-.row {
-    --bs-gutter-x: 1.5rem;
-    margin-right: 0 !important;
-    margin-left: 0 !important;
-}
-
-@media (min-width: 576px) {
-    .row {
-        margin-right: calc(-.5 * var(--bs-gutter-x)) !important;
-        margin-left: calc(-.5 * var(--bs-gutter-x)) !important;
-    }
-}
-
-/* Buttons */
-.btn {
-    display: inline-block;
-    padding: 1rem 2.5rem;
-    border-radius: 8px;
-    font-weight: 700;
+a {
     text-decoration: none;
-    transition: all 0.3s ease;
-    cursor: pointer;
+    transition: var(--transition);
+}
+
+/* 3. UTILITIES (Scoped to minimize volume) */
+.section-pad {
+    padding: clamp(60px, 10vh, 100px) 0;
+}
+
+.card-premium {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    transition: var(--transition);
+}
+
+.card-premium:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+}
+
+/* 4. NAVBAR (Especificidad alta) */
+.site-header .navbar {
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    height: 80px;
+}
+
+.site-header .navbar-brand span {
+    color: var(--primary);
+}
+
+.site-header .nav-link {
+    font-weight: 600;
+    font-size: 0.85rem;
     text-transform: uppercase;
-    font-size: 0.9rem;
-    letter-spacing: 0.5px;
+    color: var(--dark) !important;
 }
 
-.btn-primary {
-    background: var(--primary);
-    color: #fff;
+.site-header .nav-link:hover {
+    color: var(--primary) !important;
 }
 
-.btn-primary:hover {
-    background: #e6a600;
-    transform: translateY(-2px);
-}
+/* 5. SECCIONES ESPECÍFICAS (Prevenir conflictos) */
 
-.btn-dark {
-    background: var(--secondary);
-    color: #fff;
-}
-
-.btn-dark:hover {
-    background: #000;
-}
-
-/* Grid sections updated to Bootstrap, removing manual overrides if redundant */
-/* Hero Section */
-.hero-section {
-    position: relative;
-    padding: 100px 0;
-    background: #ffffff;
+/* #HERO */
+.aj-hero {
     min-height: 80vh;
     display: flex;
     align-items: center;
+    background: #fff;
 }
 
-/* Hero Content adjustments */
-.hero-content h1 {
-    font-size: calc(2rem + 2vw);
-    /* Responsive font size */
-    font-weight: 800;
-    margin-bottom: 2rem;
+.aj-hero h1 {
+    font-size: clamp(2.5rem, 8vw, 4.5rem);
+    margin-bottom: 1.5rem;
 }
 
-.hero-content h1 {
-    font-weight: 800;
-    margin-bottom: 2rem;
-}
-
-.hero-content p {
-    font-size: 1.25rem;
-    color: var(--text-light);
-    margin-bottom: 2rem;
-}
-
-.hero-cta-box {
+.aj-hero .cta-box {
     background: var(--primary);
-    color: #000;
-    padding: clamp(1.5rem, 5vw, 3rem) !important;
-    /* Smaller padding on mobile */
+    padding: 2rem;
+    border-radius: 12px;
 }
 
-.hero-cta-box h2 {
-    font-size: 2rem;
-    margin-bottom: 1.5rem;
-    color: #000;
-}
-
-.hero-cta-box ul {
-    list-style: none;
-    margin-bottom: 2rem;
-}
-
-.hero-cta-box ul li {
-    margin-bottom: 0.75rem;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-weight: 500;
-}
-
-.hero-cta-box ul li::before {
-    content: '✓';
-    font-weight: 900;
-}
-
-/* Services */
-.services-section {
-    background: var(--bg-alt);
-    text-align: center;
-}
-
-.section-title {
-    font-size: 2.5rem;
-    margin-bottom: 3rem;
+/* #LOGOS/STACK */
+.aj-stack .stack-item {
+    opacity: 0.7;
     font-weight: 700;
+    transition: var(--transition);
+    cursor: default;
 }
 
-.service-card {
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.service-card:hover {
-    transform: translateY(-5px);
-}
-
-.service-icon {
-    width: 60px;
-    height: 60px;
-    margin: 0 auto 1.5rem;
+.aj-stack .stack-item:hover {
+    opacity: 1;
     color: var(--primary);
+    transform: scale(1.05);
 }
 
-/* Method/Steps */
-.method-section {
-    background: var(--white);
-}
-
-.method-item {
-    display: flex;
-    gap: 1.5rem;
-}
-
-.method-number {
-    font-size: 2rem;
-    font-weight: 800;
-    color: var(--primary);
-}
-
-/* Pricing */
-.pricing-section {
+/* #SERVICES/PRICING */
+.aj-services {
     background: var(--bg-alt);
 }
 
-.pricing-card {
-    background: var(--white);
-    border: 1px solid var(--border-color);
+.aj-price-card {
     padding: 3rem 2rem;
-    border-radius: 8px;
-    text-align: center;
 }
 
-.pricing-card.featured {
+.aj-price-card.featured {
     border: 2px solid var(--primary);
+    position: relative;
 }
 
-.pricing-header h3 {
-    text-transform: uppercase;
-    font-size: 1.1rem;
-    margin-bottom: 1.5rem;
-}
-
-.price {
-    font-size: 3rem;
+.aj-price-card.featured::after {
+    content: "RECOMENDADO";
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--primary);
+    font-size: 0.65rem;
+    padding: 4px 12px;
+    border-radius: 20px;
     font-weight: 800;
-    margin-bottom: 2rem;
 }
 
-.pricing-features {
-    list-style: none;
-    margin-bottom: 2rem;
-    text-align: left;
+/* #ACADEMIA / COURSE-PREVIEW */
+.aj-course-card {
+    transform: perspective(1000px) rotateY(-5deg);
+    box-shadow: -20px 20px 60px rgba(0, 0, 0, 0.1);
 }
 
-.pricing-features li {
-    padding: 0.5rem 0;
-    border-bottom: 1px solid #f1f5f9;
-    color: var(--text-light);
-    font-size: 0.9rem;
+.aj-course-card:hover {
+    transform: perspective(1000px) rotateY(0deg);
 }
 
-/* WhatsApp Floating Button */
-.whatsapp-float {
-    position: fixed;
-    bottom: 30px;
-    right: 30px;
-    background-color: #25d366;
-    color: #fff;
-    width: 60px;
-    height: 60px;
-    border-radius: 50px;
-    text-align: center;
-    font-size: 24px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-    z-index: 9999;
+.aj-feature-icon {
+    width: 56px;
+    height: 56px;
     display: flex;
     align-items: center;
     justify-content: center;
-    text-decoration: none;
-    transition: all 0.3s ease;
+    border-radius: 12px;
+    background: var(--bg-alt);
 }
 
-.whatsapp-float:hover {
-    transform: scale(1.1);
-    background-color: #128c7e;
-    color: #fff;
+/* #CALCULATOR */
+#aj-calculator {
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.1);
 }
 
-.whatsapp-float svg {
-    width: 32px;
-    height: 32px;
-    fill: currentColor;
+#aj-calculator input[type=range] {
+    accent-color: var(--primary);
 }
 
-/* Responsive Styles Handled by Bootstrap */
-@media (max-width: 992px) {
-    main {
-        padding-top: 70px;
-    }
+#aj-calculator .loss-number {
+    color: #dc3545;
+    font-weight: 800;
+    text-shadow: 0 0 20px rgba(220, 53, 69, 0.2);
 }
 
-
-/* Contact Form 7 Styles */
-.wpcf7-form {
-    text-align: left;
+/* #CONVERSION (Popups/Cookie) */
+.exit-popup {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.85);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+    backdrop-filter: blur(8px);
 }
 
-.wpcf7-form label {
-    display: block;
-    font-weight: 600;
-    margin-bottom: 0.5rem;
-    font-size: 0.9rem;
-    color: var(--secondary);
+.exit-popup.active {
+    display: flex;
+    animation: fadeIn 0.3s ease;
 }
 
-.wpcf7-form-control-wrap {
-    display: block;
-    margin-bottom: 1.5rem;
-}
-
-.wpcf7-form input[type="text"],
-.wpcf7-form input[type="email"],
-.wpcf7-form textarea {
-    width: 100%;
-    padding: 0.8rem 1rem;
-    border: 1px solid var(--border-color);
-    border-radius: 6px;
-    font-family: inherit;
-    font-size: 1rem;
-    transition: border-color 0.3s ease;
-}
-
-.wpcf7-form input:focus,
-.wpcf7-form textarea:focus {
-    outline: none;
-    border-color: var(--primary);
-}
-
-.wpcf7-submit {
-    display: inline-block;
-    padding: 1rem 2.5rem;
-    border-radius: 8px;
-    font-weight: 700;
-    text-decoration: none;
-    transition: all 0.3s ease;
-    cursor: pointer;
-    text-transform: uppercase;
-    font-size: 0.9rem;
-    letter-spacing: 0.5px;
-    background: var(--primary) !important;
-    color: #fff !important;
-    border: none !important;
-    width: 100%;
-}
-
-.wpcf7-submit:hover {
-    background: #e6a600 !important;
-    transform: translateY(-2px);
-}
-
-.wpcf7-response-output {
-    margin: 2rem 0 0 !important;
-    padding: 1rem !important;
-    border-radius: 6px !important;
-    font-size: 0.9rem !important;
-}
-
-/* Cookie Banner */
 .cookie-banner {
     position: fixed;
-    bottom: -100px;
+    bottom: -120px;
     left: 0;
     width: 100%;
-    background: var(--secondary);
+    background: var(--dark);
     color: #fff;
-    padding: 1.5rem 0;
-    z-index: 10001;
+    padding: 1rem 0;
+    z-index: 20000;
     transition: bottom 0.5s ease;
-    box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.2);
 }
 
 .cookie-banner.show {
@@ -444,17 +218,9 @@ main {
     justify-content: space-between;
     align-items: center;
     gap: 2rem;
-}
-
-.cookie-content p {
-    font-size: 0.85rem;
-    line-height: 1.4;
-    margin: 0;
-}
-
-.cookie-content a {
-    color: var(--primary);
-    text-decoration: underline;
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
 }
 
 .btn-cookie {
@@ -462,216 +228,56 @@ main {
     color: #000;
     border: none;
     padding: 0.6rem 1.5rem;
-    border-radius: 4px;
-    font-weight: 700;
+    border-radius: 6px;
+    font-weight: 800;
     cursor: pointer;
     font-size: 0.8rem;
     text-transform: uppercase;
     white-space: nowrap;
+    transition: var(--transition);
 }
 
 .btn-cookie:hover {
-    background: #e6a600;
+    background: var(--primary-alt);
+    transform: translateY(-2px);
 }
 
-@media (max-width: 768px) {
-    .container-cookie {
-        flex-direction: column;
-        text-align: center;
-        gap: 1rem;
-    }
-}
-
-/* FAQ Section handled by Bootstrap */
-.faq-section {
-    background: var(--bg-alt);
-}
-
-/* Comparison Table Responsive Fixes */
-.table-responsive {
-    border-radius: 12px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-}
-
-.comparison-table td,
-.comparison-table th {
-    white-space: nowrap;
-    /* Prevent text wrapping for cleaner table scroll */
-    vertical-align: middle;
-}
-
-@media (max-width: 768px) {
-
-    .comparison-table td,
-    .comparison-table th {
-        padding: 1rem !important;
-        font-size: 0.85rem;
-    }
-}
-
-.faq-container {
-    max-width: 800px;
-    margin: 4rem auto 0;
-}
-
-.faq-item {
-    background: var(--white);
-    border: 1px solid var(--border-color);
-    border-radius: 8px;
-    margin-bottom: 1rem;
-    overflow: hidden;
-}
-
-.faq-question {
-    padding: 1.5rem 2rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    cursor: pointer;
-    font-weight: 700;
-    color: var(--secondary);
-    transition: all 0.3s ease;
-}
-
-.faq-question:hover {
-    background: rgba(var(--primary-rgb), 0.05);
-}
-
-.faq-answer {
-    padding: 0 2rem;
-    max-height: 0;
-    overflow: hidden;
-    transition: all 0.3s ease;
-    color: var(--text-light);
-    font-size: 0.95rem;
-}
-
-.faq-item.active .faq-answer {
-    padding: 0 2rem 1.5rem;
-    max-height: 500px;
-}
-
-.faq-icon {
-    font-size: 1.2rem;
-    transition: transform 0.3s ease;
-}
-
-.faq-item.active .faq-icon {
-    transform: rotate(45deg);
-}
-
-/* Updated Portfolio Result Text style */
-.portfolio-results {
-    margin-top: 1rem;
-    padding-top: 1rem;
-    border-top: 1px dashed var(--border-color);
-    color: var(--secondary);
-    font-weight: 600;
-    font-size: 0.9rem;
-}
-
-/* Responsive clean up */
-@media (max-width: 992px) {
-    .row>* {
-        margin-bottom: 1rem;
-    }
-}
-
-/* --- ADVANCED CONVERSION FEATURES --- */
-
-/* Exit-Intent Popup */
-.exit-popup {
+/* #WHATSAPP */
+.whatsapp-float {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.8);
-    display: none;
+    bottom: 30px;
+    right: 30px;
+    background: #25d366;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
     align-items: center;
     justify-content: center;
-    z-index: 20000;
-    backdrop-filter: blur(5px);
+    color: #fff;
+    box-shadow: 0 10px 25px rgba(37, 211, 102, 0.3);
+    z-index: 999;
 }
 
-.exit-popup.active {
-    display: flex;
-}
-
-.exit-popup-content {
-    background: var(--white);
-    max-width: 500px;
-    width: 90%;
-    padding: 3rem;
-    border-radius: 12px;
-    text-align: center;
-    position: relative;
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-}
-
-.exit-popup-close {
-    position: absolute;
-    top: 15px;
-    right: 15px;
-    font-size: 1.5rem;
-    cursor: pointer;
-    color: var(--text-light);
-}
-
-.exit-popup h2 {
-    font-size: 2rem;
-    margin-bottom: 1rem;
-    color: var(--secondary);
-}
-
-.exit-popup p {
-    color: var(--text-light);
-    margin-bottom: 2rem;
-}
-
-/* Dynamic WhatsApp Bubble */
 .whatsapp-bubble {
     position: fixed;
     bottom: 100px;
     right: 30px;
-    background: var(--white);
+    background: #fff;
     padding: 10px 15px;
     border-radius: 10px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-    font-size: 0.85rem;
+    box-shadow: var(--shadow);
     font-weight: 600;
-    color: var(--secondary);
-    z-index: 9998;
-    display: none;
-    animation: fadeInUp 0.5s ease-out;
+    font-size: 0.85rem;
+    z-index: 998;
 }
 
-.whatsapp-bubble::after {
-    content: '';
-    position: absolute;
-    bottom: -10px;
-    right: 20px;
-    border-left: 10px solid transparent;
-    border-right: 10px solid transparent;
-    border-top: 10px solid var(--white);
-}
-
-@media (max-width: 480px) {
-    .whatsapp-bubble {
-        display: none !important;
-        /* Hide bubble on very small screens to avoid clutter */
-    }
-}
-
-/* Portfolio Modals */
+/* #PORTFOLIO MODALS */
 .portfolio-modal {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.9);
-    z-index: 21000;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.95);
+    z-index: 11000;
     display: none;
     overflow-y: auto;
     padding: 50px 0;
@@ -681,73 +287,166 @@ main {
     display: block;
 }
 
-.portfolio-modal-content {
-    background: var(--white);
-    max-width: 900px;
-    width: 95%;
-    margin: 0 auto;
-    border-radius: 12px;
-    padding: 4rem;
-    position: relative;
-}
-
-.modal-close {
-    position: absolute;
-    top: 20px;
-    right: 30px;
-    font-size: 2rem;
+/* #CHATBOT (Gemini AI) - DISABLED */
+.chatbot-bubble {
+    position: fixed;
+    bottom: 30px;
+    right: 100px;
+    width: 60px;
+    height: 60px;
+    background: var(--dark);
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     cursor: pointer;
-    color: var(--text-light);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    z-index: 999;
+    transition: var(--transition);
 }
 
-.modal-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 3rem;
-    margin-top: 2rem;
+.chatbot-bubble:hover {
+    transform: scale(1.1);
+    background: var(--primary);
 }
 
-.modal-tag {
+.chatbot-bubble svg {
+    width: 30px;
+    height: 30px;
+}
+
+.aj-chatbot {
+    position: fixed;
+    bottom: 100px;
+    right: 30px;
+    width: 350px;
+    height: 500px;
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.15);
+    display: none;
+    flex-direction: column;
+    overflow: hidden;
+    z-index: 1000;
+    border: 1px solid var(--border);
+    animation: fadeInUp 0.3s ease;
+}
+
+.aj-chatbot.active {
+    display: flex;
+}
+
+.chatbot-header {
+    background: var(--dark);
+    color: #fff;
+    padding: 1.2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.chatbot-close {
+    cursor: pointer;
+    font-size: 1.5rem;
+    line-height: 1;
+}
+
+.chatbot-messages {
+    flex: 1;
+    padding: 1.5rem;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    background: #f9fbff;
+}
+
+.message {
+    padding: 0.8rem 1rem;
+    border-radius: 12px;
+    font-size: 0.9rem;
+    max-width: 85%;
+    line-height: 1.4;
+}
+
+.message.ai {
+    background: #fff;
+    color: var(--dark);
+    align-self: flex-start;
+    border: 1px solid var(--border);
+    border-bottom-left-radius: 2px;
+}
+
+.message.user {
     background: var(--primary);
     color: #000;
-    padding: 4px 12px;
-    border-radius: 50px;
-    font-size: 0.75rem;
-    font-weight: 800;
-    display: inline-block;
-    margin-bottom: 1rem;
+    align-self: flex-end;
+    border-bottom-right-radius: 2px;
+    font-weight: 500;
 }
 
-.modal-result-box {
-    background: var(--bg-alt);
-    padding: 1.5rem;
-    border-radius: 8px;
-    border-left: 4px solid var(--primary);
-    margin-top: 2rem;
-}
-
-/* Trusted Stack Mini Icons */
-.stack-logos {
+.chatbot-input {
+    padding: 1rem;
+    border-top: 1px solid var(--border);
     display: flex;
-    justify-content: center;
-    gap: 3rem;
-    flex-wrap: wrap;
-    align-items: center;
-    margin-top: 2rem;
-    opacity: 0.6;
-    filter: grayscale(1);
-    transition: all 0.3s ease;
+    gap: 0.5rem;
+    background: #fff;
 }
 
-.stack-logos:hover {
-    opacity: 1;
-    filter: grayscale(0);
-}
-
-.stack-item {
-    font-weight: 800;
+.chatbot-input input {
+    flex: 1;
+    border: none;
+    padding: 0.5rem;
+    outline: none;
     font-size: 0.9rem;
-    color: var(--text-light);
+}
+
+.chatbot-input button {
+    background: var(--primary);
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    color: #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.chatbot-input button:hover {
+    background: var(--primary-alt);
+}
+
+.chatbot-input button svg {
+    width: 20px;
+    height: 20px;
+}
+
+@media (max-width: 480px) {
+    .aj-chatbot {
+        width: 90%;
+        right: 5%;
+        bottom: 20px;
+        height: 80vh;
+    }
+
+    .chatbot-bubble {
+        right: 20px;
+    }
+}
+
+/* 6. ANIMATIONS */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
 }
 
 @keyframes fadeInUp {
@@ -762,58 +461,78 @@ main {
     }
 }
 
-@media (max-width: 768px) {
-    .modal-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .portfolio-modal-content {
-        padding: 2rem;
-    }
+/* 7. RESPONSIVE FIXES */
+.wpcf7-form {
+    max-width: 100%;
+    border: none !important;
 }
 
-/* --- COURSE PREVIEW SECTION --- */
-.course-section {
-    position: relative;
-    overflow: hidden;
+.wpcf7-form-control {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
 }
 
-.course-card-preview {
-    border: 1px solid var(--border-color);
-    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-    transform: perspective(1000px) rotateY(-5deg);
-    box-shadow: -20px 20px 60px rgba(0, 0, 0, 0.1);
+.wpcf7-form input[type="text"],
+.wpcf7-form input[type="email"],
+.wpcf7-form textarea {
+    padding: 0.8rem 1rem;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-family: inherit;
 }
 
-.course-card-preview:hover {
-    transform: perspective(1000px) rotateY(0deg) translateY(-10px);
-    box-shadow: 0 40px 80px rgba(0, 0, 0, 0.15);
+.wpcf7-form-control-wrap {
+    display: block;
+    margin-bottom: 0.5rem;
 }
 
-.feature-icon {
-    min-width: 56px;
-    height: 56px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.3s ease;
+.wpcf7-submit {
+    background: var(--dark) !important;
+    color: #fff !important;
+    padding: 1rem 2rem !important;
+    border-radius: 8px !important;
+    border: none !important;
+    font-weight: 800 !important;
+    cursor: pointer;
+    transition: var(--transition);
+    width: auto !important;
 }
 
-.course-features div:hover .feature-icon {
+.wpcf7-submit:hover {
     background: var(--primary) !important;
     color: #000 !important;
-    transform: scale(1.1);
+    transform: translateY(-2px);
 }
 
-.shadow-xl {
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+@media (max-width: 992px) {
+    .aj-hero {
+        text-align: center;
+        padding-top: 120px;
+    }
+
+    .aj-hero .cta-box {
+        margin-top: 3rem;
+    }
+
+    .site-header .navbar {
+        height: auto;
+        padding: 10px 0;
+    }
 }
 
-.course-section .badge {
-    letter-spacing: 1px;
-}
+@media (max-width: 576px) {
+    .section-pad {
+        padding: 60px 0;
+    }
 
-.course-section .dashicons {
-    color: inherit;
-    line-height: 1;
+    .aj-hero h1 {
+        font-size: 2.2rem;
+    }
+
+    #contacto .p-4 {
+        padding: 1.5rem !important;
+    }
+
+    /* Reducir padding en móvil para ganar espacio */
 }

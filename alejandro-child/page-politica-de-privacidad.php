@@ -1,6 +1,6 @@
 <?php
 /**
- * Template Name: Legal Page
+ * Template Name: Privacity Page
  */
 ?>
 <!DOCTYPE html>

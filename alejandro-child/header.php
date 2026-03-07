@@ -26,22 +26,16 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ms-auto align-items-center">
                         <li class="nav-item">
-                            <a class="nav-link" href="<?php echo esc_url( home_url( '/#servicios' ) ); ?>">Servicios</a>
+                            <a class="nav-link" href="<?php echo esc_url( home_url( 'servicios' ) ); ?>">Servicios</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="<?php echo esc_url( home_url( '/#portfolio' ) ); ?>">Proyectos</a>
+                            <a class="nav-link" href="<?php echo esc_url( home_url( 'portfolio' ) ); ?>">Proyectos</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="<?php echo esc_url( home_url( '/#metodo' ) ); ?>">Metodología</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="<?php echo esc_url( home_url( '/#precios' ) ); ?>">Precios</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="<?php echo esc_url( home_url( '/#testimonios' ) ); ?>">Testimonios</a>
+                            <a class="nav-link" href="<?php echo esc_url( home_url( 'academia' ) ); ?>">Academia</a>
                         </li>
                         <li class="nav-item ms-lg-3">
-                            <a class="btn btn-dark nav-cta py-2 px-4 shadow-sm" href="<?php echo esc_url( home_url( '/#contacto' ) ); ?>">Solicitar Presupuesto</a>
+                            <a class="btn btn-dark nav-cta py-2 px-4 shadow-sm" href="<?php echo esc_url( home_url( '#contacto' ) ); ?>">Solicitar Presupuesto</a>
                         </li>
                     </ul>
                 </div>
