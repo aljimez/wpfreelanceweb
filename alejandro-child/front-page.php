@@ -211,10 +211,10 @@
 
             // Inicializar animaciones de scroll (AOS)
             AOS.init({
-                duration: 1000,
+                duration: 800,
                 once: true,
-                offset: 100,
-                easing: 'ease-out-back'
+                offset: 50,
+                easing: 'ease-out'
             });
 
             // Scroll suave para todos los enlaces internos

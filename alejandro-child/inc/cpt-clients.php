@@ -1,17 +1,20 @@
 <?php
 /**
- * Custom Post Type for Clients
+ * ARCHIVO: cpt-clients.php
+ * DESCRIPCIÓN: Registro del Custom Post Type 'Cliente' y gestión de sus campos personalizados (metaboxes).
+ * Incluye lógica de cálculo de rentabilidad, modo privacidad y automatización de leads.
  */
 
+/**
+ * 1. REGISTRO DEL CUSTOM POST TYPE (CPT)
+ * Define cómo se verá y se comportará el tipo de post 'Cliente' en el menú de WordPress.
+ */
 function register_clients_cpt() {
     $labels = array(
         'name'                  => _x( 'Clientes', 'Post Type General Name', 'alejandro-child' ),
         'singular_name'         => _x( 'Cliente', 'Post Type Singular Name', 'alejandro-child' ),
         'menu_name'             => __( 'Clientes', 'alejandro-child' ),
         'name_admin_bar'        => __( 'Cliente', 'alejandro-child' ),
-        'archives'              => __( 'Archivo de Clientes', 'alejandro-child' ),
-        'attributes'            => __( 'Atributos de Cliente', 'alejandro-child' ),
-        'parent_item_colon'     => __( 'Cliente Padre:', 'alejandro-child' ),
         'all_items'             => __( 'Todos los Clientes', 'alejandro-child' ),
         'add_new_item'          => __( 'Añadir Nuevo Cliente', 'alejandro-child' ),
         'add_new'               => __( 'Añadir Nuevo', 'alejandro-child' ),
@@ -19,46 +22,30 @@ function register_clients_cpt() {
         'edit_item'             => __( 'Editar Cliente', 'alejandro-child' ),
         'update_item'           => __( 'Actualizar Cliente', 'alejandro-child' ),
         'view_item'             => __( 'Ver Cliente', 'alejandro-child' ),
-        'view_items'            => __( 'Ver Clientes', 'alejandro-child' ),
         'search_items'          => __( 'Buscar Cliente', 'alejandro-child' ),
         'not_found'             => __( 'No se encontraron clientes', 'alejandro-child' ),
-        'not_found_in_trash'    => __( 'No se encontraron clientes en la papelera', 'alejandro-child' ),
         'featured_image'        => __( 'Logo del Cliente', 'alejandro-child' ),
-        'set_featured_image'    => __( 'Establecer logo del cliente', 'alejandro-child' ),
-        'remove_featured_image' => __( 'Eliminar logo del cliente', 'alejandro-child' ),
-        'use_featured_image'    => __( 'Usar como logo del cliente', 'alejandro-child' ),
-        'insert_into_item'      => __( 'Insertar en el cliente', 'alejandro-child' ),
-        'uploaded_to_this_item' => __( 'Subido a este cliente', 'alejandro-child' ),
-        'items_list'            => __( 'Lista de clientes', 'alejandro-child' ),
-        'items_list_navigation' => __( 'Navegación de lista de clientes', 'alejandro-child' ),
-        'filter_items_list'     => __( 'Filtrar lista de clientes', 'alejandro-child' ),
     );
     $args = array(
         'label'                 => __( 'Cliente', 'alejandro-child' ),
         'description'           => __( 'Gestión de clientes de freelancer', 'alejandro-child' ),
         'labels'                => $labels,
         'supports'              => array( 'title', 'thumbnail', 'editor' ),
-        'hierarchical'          => false,
         'public'                => true,
         'show_ui'               => true,
         'show_in_menu'          => true,
         'menu_position'         => 5,
-        'menu_icon'             => 'dashicons-businessman',
-        'show_in_admin_bar'     => true,
-        'show_in_nav_menus'     => true,
-        'can_export'            => true,
-        'has_archive'           => true,
-        'exclude_from_search'   => false,
-        'publicly_queryable'    => true,
+        'menu_icon'             => 'dashicons-businessman', // Icono de maletín
         'capability_type'       => 'post',
-        'show_in_rest'          => true,
+        'show_in_rest'          => true, // Habilita Gutenberg y la API REST
     );
     register_post_type( 'cliente', $args );
 }
 add_action( 'init', 'register_clients_cpt', 0 );
 
 /**
- * Meta Boxes for Clients
+ * 2. REGISTRO DE METABOXES (CAMPOS PERSONALIZADOS)
+ * Crea el panel 'Detalles del Cliente' en la pantalla de edición.
  */
 function add_clients_meta_boxes() {
     add_meta_box(
@@ -72,10 +59,15 @@ function add_clients_meta_boxes() {
 }
 add_action( 'add_meta_boxes', 'add_clients_meta_boxes' );
 
+/**
+ * 3. RENDERIZADO DEL PANEL DE DETALLES (HTML)
+ * Dibuja el formulario donde se introducen los datos del cliente.
+ */
 function render_client_details_meta_box( $post ) {
-    // Add a nonce field so we can check for it later.
+    // Campo de seguridad para prevenir ataques CSRF
     wp_nonce_field( 'client_details_nonce', 'client_details_nonce' );
 
+    // Recuperamos los valores guardados anteriormente en la base de datos
     $website = get_post_meta( $post->ID, '_client_website', true );
     $email = get_post_meta( $post->ID, '_client_email', true );
     $phone = get_post_meta( $post->ID, '_client_phone', true );
@@ -83,10 +75,21 @@ function render_client_details_meta_box( $post ) {
     $project_status = get_post_meta( $post->ID, '_client_status', true );
     $service = get_post_meta( $post->ID, '_client_service', true );
     $budget = get_post_meta( $post->ID, '_client_budget', true );
+    $hours = get_post_meta( $post->ID, '_client_hours', true );
     $start_date = get_post_meta( $post->ID, '_client_start_date', true );
     $considerations = get_post_meta( $post->ID, '_client_considerations', true );
 
+    // CÁLCULO DE RENTABILIDAD: Limpiamos los valores de presupuesto y horas para evitar errores
+    $clean_budget = floatval(preg_replace('/[^0-9.]/', '', str_replace(',', '.', (string)$budget)));
+    $clean_hours = floatval(preg_replace('/[^0-9.]/', '', str_replace(',', '.', (string)$hours)));
+    
+    $profitability = 0;
+    if ( $clean_hours > 0 ) {
+        $profitability = $clean_budget / $clean_hours; // División simple: € / horas
+    }
+
     ?>
+    <!-- Cabecera del panel con botón de privacidad -->
     <div style="background: #f0f0f1; padding: 10px; border-bottom: 1px solid #ccd0d4; margin: -12px -12px 12px -12px; display: flex; justify-content: flex-end;">
         <button type="button" id="toggle-client-privacy" class="button">
             <span class="dashicons dashicons-visibility" style="vertical-align: middle; margin-top: -2px;"></span>
@@ -94,6 +97,7 @@ function render_client_details_meta_box( $post ) {
         </button>
     </div>
 
+    <!-- Tabla con los campos del formulario -->
     <table class="form-table" id="client-details-table">
         <tr class="client-info-row">
             <th><label for="client_website"><?php _e( 'Sitio Web', 'alejandro-child' ); ?></label></th>
@@ -115,11 +119,10 @@ function render_client_details_meta_box( $post ) {
             <th><label for="client_status"><?php _e( 'Estado del Proyecto', 'alejandro-child' ); ?></label></th>
             <td>
                 <select id="client_status" name="client_status">
-                    <option value="lead" <?php selected( $project_status, 'lead' ); ?>><?php _e( 'Potencial (Lead)', 'alejandro-child' ); ?></option>
-                    <option value="active" <?php selected( $project_status, 'active' ); ?>><?php _e( 'Activo', 'alejandro-child' ); ?></option>
-                    <option value="on_hold" <?php selected( $project_status, 'on_hold' ); ?>><?php _e( 'En pausa', 'alejandro-child' ); ?></option>
-                    <option value="completed" <?php selected( $project_status, 'completed' ); ?>><?php _e( 'Completado', 'alejandro-child' ); ?></option>
-                    <option value="cancelled" <?php selected( $project_status, 'cancelled' ); ?>><?php _e( 'Cancelado', 'alejandro-child' ); ?></option>
+                    <option value="lead" <?php selected( $project_status, 'lead' ); ?>>Potencial (Lead)</option>
+                    <option value="active" <?php selected( $project_status, 'active' ); ?>>Activo</option>
+                    <option value="on_hold" <?php selected( $project_status, 'on_hold' ); ?>>En pausa</option>
+                    <option value="completed" <?php selected( $project_status, 'completed' ); ?>>Completado</option>
                 </select>
             </td>
         </tr>
@@ -127,12 +130,10 @@ function render_client_details_meta_box( $post ) {
             <th><label for="client_service"><?php _e( 'Servicio Contratado', 'alejandro-child' ); ?></label></th>
             <td>
                 <select id="client_service" name="client_service">
-                    <option value="diseno_web" <?php selected( $service, 'diseno_web' ); ?>><?php _e( 'Diseño Web', 'alejandro-child' ); ?></option>
-                    <option value="desarrollo_web" <?php selected( $service, 'desarrollo_web' ); ?>><?php _e( 'Desarrollo Web', 'alejandro-child' ); ?></option>
-                    <option value="seo_sem" <?php selected( $service, 'seo_sem' ); ?>><?php _e( 'SEO / SEM', 'alejandro-child' ); ?></option>
-                    <option value="mantenimiento" <?php selected( $service, 'mantenimiento' ); ?>><?php _e( 'Mantenimiento', 'alejandro-child' ); ?></option>
-                    <option value="consultoria" <?php selected( $service, 'consultoria' ); ?>><?php _e( 'Consultoría', 'alejandro-child' ); ?></option>
-                    <option value="otros" <?php selected( $service, 'otros' ); ?>><?php _e( 'Otros', 'alejandro-child' ); ?></option>
+                    <option value="diseno_web" <?php selected( $service, 'diseno_web' ); ?>>Diseño Web</option>
+                    <option value="desarrollo_web" <?php selected( $service, 'desarrollo_web' ); ?>>Desarrollo Web</option>
+                    <option value="mantenimiento" <?php selected( $service, 'mantenimiento' ); ?>>Mantenimiento</option>
+                    <option value="otros" <?php selected( $service, 'otros' ); ?>>Otros</option>
                 </select>
             </td>
         </tr>
@@ -141,62 +142,76 @@ function render_client_details_meta_box( $post ) {
             <td><input type="number" id="client_budget" name="client_budget" value="<?php echo esc_attr( $budget ); ?>" class="regular-text" step="0.01"></td>
         </tr>
         <tr class="client-info-row">
+            <th><label for="client_hours"><?php _e( 'Horas Mensuales', 'alejandro-child' ); ?></label></th>
+            <td><input type="number" id="client_hours" name="client_hours" value="<?php echo esc_attr( $hours ); ?>" class="regular-text" step="0.1"></td>
+        </tr>
+        <tr class="client-info-row">
+            <th><label><?php _e( 'Rentabilidad Real', 'alejandro-child' ); ?></label></th>
+            <td>
+                <!-- Mostramos el color verde si la rentabilidad es > 50€/h, si no naranja -->
+                <span style="font-weight: bold; font-size: 1.2em; color: <?php echo $profitability > 50 ? '#27ae60' : '#e67e22'; ?>;">
+                    <?php echo number_format( $profitability, 2 ); ?> €/h
+                </span>
+                <p class="description"><?php _e( 'Calculado automáticamente (Presupuesto / Horas)', 'alejandro-child' ); ?></p>
+            </td>
+        </tr>
+        <tr class="client-info-row">
             <th><label for="client_start_date"><?php _e( 'Fecha de Inicio', 'alejandro-child' ); ?></label></th>
             <td><input type="date" id="client_start_date" name="client_start_date" value="<?php echo esc_attr( $start_date ); ?>" class="regular-text"></td>
         </tr>
         <tr class="client-info-row">
-            <th><label for="client_considerations"><?php _e( 'Consideraciones', 'alejandro-child' ); ?></label></th>
+            <th><label for="client_considerations"><?php _e( 'Anotaciones', 'alejandro-child' ); ?></label></th>
             <td><textarea id="client_considerations" name="client_considerations" rows="5" class="large-text"><?php echo esc_textarea( $considerations ); ?></textarea></td>
         </tr>
     </table>
 
     <script>
+    /**
+     * LÓGICA DE PRIVACIDAD (JavaScript/jQuery)
+     * Permite ocultar visualmente los datos para trabajar en público sin mostrar cifras sensibles.
+     */
     (function($) {
-        // Objeto para guardar temporalmente los valores
-        var originalValues = {};
-
         $('#toggle-client-privacy').on('click', function() {
             var btn = $(this);
             var btnText = $('#privacy-btn-text');
             var icon = btn.find('.dashicons');
             var inputs = $('#client-details-table').find('input, select, textarea');
-            
             var isHidden = btn.data('hidden') || false;
 
             if (!isHidden) {
-                // OCULTAR: Guardar valores y vaciar campos
+                // MODO OCULTO: Usamos filtros visuales y texto transparente
+                // IMPORTANTE: No vaciamos el valor (.val('')) para evitar que se guarde vacío en la DB.
                 inputs.each(function() {
                     var input = $(this);
-                    originalValues[input.attr('id')] = input.val();
-                    
                     if (input.is('select')) {
-                        // Para select, podemos poner una opción vacía o simplemente deshabilitar visualmente
-                        input.css('opacity', '0');
+                        input.css('opacity', '0.1'); // Los select no admiten texto transparente bien
                     } else {
-                        input.val('');
-                        input.attr('placeholder', '********');
+                        input.css({
+                            'color': 'transparent',
+                            'text-shadow': '0 0 8px rgba(0,0,0,0.5)', // Crea un efecto de difuminado
+                            'user-select': 'none'
+                        });
                     }
                     input.prop('readonly', true);
-                    input.css('filter', 'blur(3px)');
                 });
 
                 btnText.text('<?php _e( 'Mostrar Datos', 'alejandro-child' ); ?>');
                 icon.removeClass('dashicons-visibility').addClass('dashicons-hidden');
                 btn.data('hidden', true);
             } else {
-                // MOSTRAR: Restaurar valores
+                // MODO VISIBLE: Restauramos los estilos originales
                 inputs.each(function() {
                     var input = $(this);
-                    var originalVal = originalValues[input.attr('id')];
-                    
                     if (input.is('select')) {
                         input.css('opacity', '1');
                     } else {
-                        input.val(originalVal);
-                        input.attr('placeholder', '');
+                        input.css({
+                            'color': '',
+                            'text-shadow': 'none',
+                            'user-select': 'auto'
+                        });
                     }
                     input.prop('readonly', false);
-                    input.css('filter', 'none');
                 });
 
                 btnText.text('<?php _e( 'Ocultar Datos', 'alejandro-child' ); ?>');
@@ -209,155 +224,112 @@ function render_client_details_meta_box( $post ) {
     <?php
 }
 
+/**
+ * 4. GUARDADO DE DATOS (SAVE_POST)
+ * Procesa el formulario cuando el usuario pulsa "Actualizar" o "Publicar".
+ */
 function save_client_details_meta( $post_id ) {
-    // Check if our nonce is set.
-    if ( ! isset( $_POST['client_details_nonce'] ) ) {
-        return;
-    }
+    // Verificaciones de seguridad (Nonce, Autosave y Permisos)
+    if ( ! isset( $_POST['client_details_nonce'] ) || ! wp_verify_nonce( $_POST['client_details_nonce'], 'client_details_nonce' ) ) return;
+    if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) return;
+    if ( ! current_user_can( 'edit_post', $post_id ) ) return;
 
-    // Verify that the nonce is valid.
-    if ( ! wp_verify_nonce( $_POST['client_details_nonce'], 'client_details_nonce' ) ) {
-        return;
-    }
-
-    // If this is an autosave, our form has not been submitted, so we don't want to do anything.
-    if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
-        return;
-    }
-
-    // Check the user's permissions.
-    if ( isset( $_POST['post_type'] ) && 'cliente' == $_POST['post_type'] ) {
-        if ( ! current_user_can( 'edit_post', $post_id ) ) {
-            return;
-        }
-    }
-
-    // Update the meta field in the database.
-    if ( isset( $_POST['client_website'] ) ) {
-        update_post_meta( $post_id, '_client_website', sanitize_url( $_POST['client_website'] ) );
-    }
-    if ( isset( $_POST['client_email'] ) ) {
-        update_post_meta( $post_id, '_client_email', sanitize_email( $_POST['client_email'] ) );
-    }
-    if ( isset( $_POST['client_phone'] ) ) {
-        update_post_meta( $post_id, '_client_phone', sanitize_text_field( $_POST['client_phone'] ) );
-    }
-    if ( isset( $_POST['client_city'] ) ) {
-        update_post_meta( $post_id, '_client_city', sanitize_text_field( $_POST['client_city'] ) );
-    }
-    if ( isset( $_POST['client_status'] ) ) {
-        update_post_meta( $post_id, '_client_status', sanitize_text_field( $_POST['client_status'] ) );
-    }
-    if ( isset( $_POST['client_service'] ) ) {
-        update_post_meta( $post_id, '_client_service', sanitize_text_field( $_POST['client_service'] ) );
-    }
-    if ( isset( $_POST['client_budget'] ) ) {
-        update_post_meta( $post_id, '_client_budget', sanitize_text_field( $_POST['client_budget'] ) );
-    }
-    if ( isset( $_POST['client_start_date'] ) ) {
-        update_post_meta( $post_id, '_client_start_date', sanitize_text_field( $_POST['client_start_date'] ) );
-    }
-    if ( isset( $_POST['client_considerations'] ) ) {
-        update_post_meta( $post_id, '_client_considerations', sanitize_textarea_field( $_POST['client_considerations'] ) );
-    }
+    // Guardamos cada campo saneando la información para evitar inyecciones de código
+    if ( isset( $_POST['client_website'] ) ) update_post_meta( $post_id, '_client_website', sanitize_url( $_POST['client_website'] ) );
+    if ( isset( $_POST['client_email'] ) ) update_post_meta( $post_id, '_client_email', sanitize_email( $_POST['client_email'] ) );
+    if ( isset( $_POST['client_phone'] ) ) update_post_meta( $post_id, '_client_phone', sanitize_text_field( $_POST['client_phone'] ) );
+    if ( isset( $_POST['client_city'] ) ) update_post_meta( $post_id, '_client_city', sanitize_text_field( $_POST['client_city'] ) );
+    if ( isset( $_POST['client_status'] ) ) update_post_meta( $post_id, '_client_status', sanitize_text_field( $_POST['client_status'] ) );
+    if ( isset( $_POST['client_service'] ) ) update_post_meta( $post_id, '_client_service', sanitize_text_field( $_POST['client_service'] ) );
+    if ( isset( $_POST['client_budget'] ) ) update_post_meta( $post_id, '_client_budget', sanitize_text_field( $_POST['client_budget'] ) );
+    if ( isset( $_POST['client_hours'] ) ) update_post_meta( $post_id, '_client_hours', sanitize_text_field( $_POST['client_hours'] ) );
+    if ( isset( $_POST['client_start_date'] ) ) update_post_meta( $post_id, '_client_start_date', sanitize_text_field( $_POST['client_start_date'] ) );
+    if ( isset( $_POST['client_considerations'] ) ) update_post_meta( $post_id, '_client_considerations', sanitize_textarea_field( $_POST['client_considerations'] ) );
 }
 add_action( 'save_post', 'save_client_details_meta' );
 
 /**
- * Custom Columns for Clients List
+ * 5. PERSONALIZACIÓN DE COLUMNAS EN EL LISTADO ADMIN
+ * Añade campos extra (Servicio, Ciudad, Rentabilidad...) a la tabla general de Clientes.
  */
 function set_custom_edit_cliente_columns($columns) {
     $columns['client_service'] = __( 'Servicio', 'alejandro-child' );
     $columns['client_city'] = __( 'Ciudad', 'alejandro-child' );
-    $columns['client_email'] = __( 'Email', 'alejandro-child' );
     $columns['client_status'] = __( 'Estado', 'alejandro-child' );
+    $columns['client_profitability'] = __( '€/h', 'alejandro-child' );
     $columns['client_considerations'] = __( 'Anotaciones', 'alejandro-child' );
     return $columns;
 }
 add_filter( 'manage_cliente_posts_columns', 'set_custom_edit_cliente_columns' );
 
+/**
+ * 6. CONTENIDO DE LAS COLUMNAS PERSONALIZADAS
+ * Define qué se muestra exactamente en cada columna nueva de la lista.
+ */
 function custom_cliente_column( $column, $post_id ) {
     switch ( $column ) {
-        case 'client_email' :
-            echo get_post_meta( $post_id , '_client_email' , true ); 
-            break;
-
         case 'client_city' :
             echo get_post_meta( $post_id , '_client_city' , true ); 
             break;
 
         case 'client_service' :
             $service = get_post_meta( $post_id , '_client_service' , true );
-            $service_labels = array(
-                'diseno_web' => 'Diseño Web',
-                'desarrollo_web' => 'Desarrollo Web',
-                'seo_sem' => 'SEO / SEM',
-                'mantenimiento' => 'Mantenimiento',
-                'consultoria' => 'Consultoría',
-                'otros' => 'Otros'
-            );
-            echo isset($service_labels[$service]) ? $service_labels[$service] : '-';
+            $labels = array('diseno_web' => 'Diseño Web', 'desarrollo_web' => 'Desarrollo Web', 'mantenimiento' => 'Mantenimiento');
+            echo isset($labels[$service]) ? $labels[$service] : 'Otros';
             break;
 
         case 'client_status' :
             $status = get_post_meta( $post_id , '_client_status' , true );
-            $labels = array(
-                'lead' => 'Potencial',
-                'active' => 'Activo',
-                'on_hold' => 'En pausa',
-                'completed' => 'Completado',
-                'cancelled' => 'Cancelado'
-            );
+            $labels = array('lead' => 'Potencial', 'active' => 'Activo', 'on_hold' => 'Pausa', 'completed' => 'Listo');
             echo isset($labels[$status]) ? $labels[$status] : $status;
             break;
 
+        case 'client_profitability' :
+            // Recuperamos y calculamos de nuevo para la columna (€/h)
+            $b_val = get_post_meta( $post_id , '_client_budget' , true );
+            $h_val = get_post_meta( $post_id , '_client_hours' , true );
+            $b = floatval(preg_replace('/[^0-9.]/', '', str_replace(',', '.', (string)$b_val)));
+            $h = floatval(preg_replace('/[^0-9.]/', '', str_replace(',', '.', (string)$h_val)));
+            if ( $h > 0 ) {
+                $prof = $b / $h;
+                echo '<strong style="color:' . ($prof > 50 ? '#27ae60' : '#e67e22') . ';">' . number_format( $prof, 2 ) . ' €/h</strong>';
+            } else {
+                echo '-';
+            }
+            break;
+
         case 'client_considerations' :
-            $considerations = get_post_meta( $post_id , '_client_considerations' , true );
-            echo $considerations ? wp_trim_words( $considerations, 10, '...' ) : '-';
+            $cons = get_post_meta( $post_id , '_client_considerations' , true );
+            echo $cons ? wp_trim_words( $cons, 8, '...' ) : '-';
             break;
     }
 }
 add_action( 'manage_cliente_posts_custom_column' , 'custom_cliente_column', 10, 2 );
 
 /**
- * Automate Lead Creation from Contact Form 7
+ * 7. AUTOMATIZACIÓN DE LEADS (CONTACT FORM 7)
+ * Captura los envíos del formulario de contacto y crea automáticamente una ficha de Cliente tipo 'Lead'.
  */
 function create_client_from_cf7( $contact_form ) {
-    // Get the submission instance
     $submission = WPCF7_Submission::get_instance();
-
     if ( $submission ) {
-        $posted_data = $submission->get_posted_data();
-
-        // Extract data (using standard CF7 field names)
-        $name    = isset( $posted_data['your-name'] ) ? sanitize_text_field( $posted_data['your-name'] ) : 'Lead desde Web';
-        $email   = isset( $posted_data['your-email'] ) ? sanitize_email( $posted_data['your-email'] ) : '';
-        $phone   = isset( $posted_data['your-tel'] ) ? sanitize_text_field( $posted_data['your-tel'] ) : '';
-        $message = isset( $posted_data['your-message'] ) ? sanitize_textarea_field( $posted_data['your-message'] ) : '';
-        $subject = isset( $posted_data['your-subject'] ) ? sanitize_text_field( $posted_data['your-subject'] ) : '';
-
-        // Determine service if provided
-        $service = 'otros';
-        if ( stripos( $message, 'diseño' ) !== false || stripos( $subject, 'diseño' ) !== false ) $service = 'diseno_web';
-        if ( stripos( $message, 'desarrollo' ) !== false || stripos( $subject, 'desarrollo' ) !== false ) $service = 'desarrollo_web';
-        if ( stripos( $message, 'mantenimiento' ) !== false || stripos( $subject, 'mantenimiento' ) !== false ) $service = 'mantenimiento';
-        if ( stripos( $message, 'seo' ) !== false || stripos( $subject, 'seo' ) !== false ) $service = 'seo_sem';
-
-        // Create the post
+        $data = $submission->get_posted_data();
+        $name = isset($data['your-name']) ? sanitize_text_field($data['your-name']) : 'Nuevo Lead';
+        
+        // Creamos el Borrador del Cliente
         $client_id = wp_insert_post( array(
             'post_title'   => $name,
-            'post_content' => $message,
+            'post_content' => isset($data['your-message']) ? sanitize_textarea_field($data['your-message']) : '',
             'post_status'  => 'publish',
             'post_type'    => 'cliente',
         ) );
 
         if ( $client_id ) {
-            // Update meta fields
-            update_post_meta( $client_id, '_client_email', $email );
-            update_post_meta( $client_id, '_client_phone', $phone );
+            // Rellenamos los campos automáticamente
+            update_post_meta( $client_id, '_client_email', sanitize_email($data['your-email']) );
+            update_post_meta( $client_id, '_client_phone', sanitize_text_field($data['your-tel']) );
             update_post_meta( $client_id, '_client_status', 'lead' );
-            update_post_meta( $client_id, '_client_service', $service );
-            update_post_meta( $client_id, '_client_considerations', "Asunto: $subject\n\n$message" );
+            update_post_meta( $client_id, '_client_considerations', "Motivo: " . sanitize_text_field($data['your-subject']) );
         }
     }
 }

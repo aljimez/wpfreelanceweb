@@ -48,12 +48,15 @@ main {
     box-sizing: border-box;
 }
 
+html,
 body {
     background-color: var(--bg-light);
     color: var(--text-dark);
     font-family: 'Inter', sans-serif;
     line-height: 1.6;
     overflow-x: hidden;
+    width: 100%;
+    position: relative;
 }
 
 h1,
@@ -80,6 +83,8 @@ h2,
 .display-5 {
     font-size: clamp(1.6rem, 6vw, 2.8rem);
     line-height: 1.1;
+    word-break: normal;
+    overflow-wrap: break-word;
 }
 
 h3,
@@ -107,8 +112,28 @@ h4 {
 /* Sections */
 section {
     padding: clamp(60px, 10vh, 100px) 0;
+    position: relative;
+    width: 100%;
+}
+
+main {
     overflow-x: hidden;
-    /* Prevent overflow at section level */
+    width: 100%;
+    position: relative;
+}
+
+/* Fix Bootstrap row overflow when not inside an ideal container */
+.row {
+    --bs-gutter-x: 1.5rem;
+    margin-right: 0 !important;
+    margin-left: 0 !important;
+}
+
+@media (min-width: 576px) {
+    .row {
+        margin-right: calc(-.5 * var(--bs-gutter-x)) !important;
+        margin-left: calc(-.5 * var(--bs-gutter-x)) !important;
+    }
 }
 
 /* Buttons */
@@ -127,7 +152,7 @@ section {
 
 .btn-primary {
     background: var(--primary);
-    color: #000;
+    color: #fff;
 }
 
 .btn-primary:hover {
@@ -379,7 +404,7 @@ section {
     font-size: 0.9rem;
     letter-spacing: 0.5px;
     background: var(--primary) !important;
-    color: #000 !important;
+    color: #fff !important;
     border: none !important;
     width: 100%;
 }
