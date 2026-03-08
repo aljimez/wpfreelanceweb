@@ -7,7 +7,7 @@
     <div class="container">
         <div class="row align-items-center g-5">
             <div class="col-lg-6 about-image" data-aos="fade-right">
-                <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/img/alejandro.webp" alt="Alejandro Freelancer" class="img-fluid rounded-4 shadow-lg" onerror="this.src='https://via.placeholder.com/600x800?text=Alejandro+Freelancer';">
+                <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/img/alejandro.webp" alt="Alejandro Jimenez" class="img-fluid rounded-4 shadow-lg" >
             </div>
             <div class="col-lg-6 about-content" data-aos="fade-left">
                 <p class="text-primary fw-bold text-uppercase mb-2">Sobre mí</p>

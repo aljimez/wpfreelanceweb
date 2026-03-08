@@ -196,6 +196,42 @@ a {
     animation: fadeIn 0.3s ease;
 }
 
+.exit-popup-content {
+    transition: transform 0.3s ease;
+}
+
+.exit-popup.active .exit-popup-content {
+    transform: scale(1);
+}
+
+/* #STICKY MOBILE CTA */
+.sticky-mobile-cta {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.2);
+    display: none;
+}
+
+@media (max-width: 991px) {
+    .sticky-mobile-cta {
+        display: block;
+    }
+
+    .whatsapp-float,
+    .whatsapp-bubble {
+        bottom: 80px;
+        /* Subir para no tapar el CTA */
+    }
+}
+
+.btn-whatsapp-mobile:active,
+.btn-diagnostico-mobile:active {
+    filter: brightness(0.9);
+}
+
 .cookie-banner {
     position: fixed;
     bottom: -120px;
@@ -535,4 +571,5 @@ a {
     }
 
     /* Reducir padding en móvil para ganar espacio */
-}
+}@keyframes pulse { 0% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.5); opacity: 0.5; } 100% { transform: scale(1); opacity: 1; } }
+.accordion-item { border: none; margin-bottom: 0.8rem; } .accordion-button { border-radius: 12px !important; box-shadow: 0 4px 6px rgba(0,0,0,0.02); border: 1px solid var(--border); transition: var(--transition); } .accordion-button:not(.collapsed) { background: #fff; color: var(--primary); border-color: var(--primary); box-shadow: 0 10px 20px rgba(255,184,0,0.1); } .accordion-button:after { background-size: 1rem; } .accordion-body { border: 1px solid var(--border); border-top: none; border-bottom-left-radius: 12px; border-bottom-right-radius: 12px; margin-top: -5px; }

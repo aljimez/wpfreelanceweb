@@ -80,7 +80,7 @@
 
                     <!-- Información Básica sobre Protección de Datos -->
                     <div class="mt-5 pt-4 border-top border-light x-small text-muted">
-                        <p class="mb-1"><strong>Responsable:</strong> Alejandro Freelancer.</p>
+                        <p class="mb-1"><strong>Responsable:</strong> Alejandro Jiménez.</p>
                         <p class="mb-1"><strong>Finalidad:</strong> Gestión y resolución de su consulta.</p>
                         <p class="mb-1"><strong>Legitimación:</strong> Consentimiento del interesado.</p>
                         <p class="mb-1"><strong>Destinatarios:</strong> No se cederán datos a terceros.</p>
@@ -93,7 +93,7 @@
         <div class="row justify-content-center mt-5 text-center g-4">
             <div class="col-md-4">
                 <p class="text-primary fw-bold text-uppercase small mb-1">Email</p>
-                <p class="h6 mb-0">ajimeneza01@gmail.com</p>
+                <p class="h6 mb-0">ajimenezal01@gmail.com</p>
             </div>
             <div class="col-md-4">
                 <p class="text-primary fw-bold text-uppercase small mb-1">Teléfono</p>

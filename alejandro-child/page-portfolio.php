@@ -15,7 +15,7 @@ get_header(); ?>
     <?php
     get_template_part('front-page/portfolio');
     get_template_part('front-page/logos'); // Para que vean que trabajamos con stacks serios de nuevo
-    get_template_part('front-page/contact-testimonials');
+    // El contacto y testimonios se cargan ahora globalmente desde footer.php
     ?>
 </main>
 

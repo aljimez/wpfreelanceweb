@@ -1,72 +1,97 @@
 <?php
 /**
- * FAQ Section: Destroying objections
+ * FAQ Section - Resolving objections for Academy Owners
  */
 ?>
-<section id="faq" class="faq-section">
+<section id="faq" class="section-pad bg-light">
     <div class="container">
-        <div class="section-header" style="text-align: center;">
-            <p style="color: var(--primary); font-weight: 800; text-transform: uppercase;">Dudas frecuentes</p>
-            <h2 class="section-title">RESOLVAMOS TUS PREGUNTAS</h2>
+        <div class="section-header text-center mb-5" data-aos="fade-up">
+            <span class="badge bg-primary text-dark px-3 py-2 rounded-pill fw-bold text-uppercase mb-3">Resolviendo dudas</span>
+            <h2 class="display-5 fw-bold mb-4 font-heading">PREGUNTAS FRECUENTES</h2>
+            <p class="lead opacity-75 mx-auto" style="max-width: 700px;">Despeja las dudas técnicas más comunes antes de dar el paso para profesionalizar tu academia.</p>
         </div>
 
         <div class="row justify-content-center">
-            <div class="col-lg-8">
-                <div class="accordion accordion-flush" id="accordionFAQ">
-                    <div class="accordion-item border mb-3 rounded-3 overflow-hidden shadow-sm" data-aos="fade-up">
-                        <h2 class="accordion-header" id="headingOne">
-                            <button class="accordion-button collapsed fw-bold p-4" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-                                ¿Por qué es mejor un desarrollo desde cero que una plantilla?
+            <div class="col-lg-8" data-aos="fade-up" data-aos-delay="100">
+                <div class="accordion accordion-flush shadow-sm rounded-4 overflow-hidden border" id="accordionFAQ">
+                    
+                    <!-- FAQ 1 -->
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button fw-bold py-4 px-4" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">
+                                ¿Tengo que cambiar mi hosting actual para trabajar con vosotros?
                             </button>
                         </h2>
-                        <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionFAQ">
+                        <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#accordionFAQ">
                             <div class="accordion-body p-4 text-muted">
-                                <p>Las plantillas vienen cargadas de miles de líneas de código que no necesitas, lo que ralentiza tu web y la hace más vulnerable. Un desarrollo desde cero solo incluye lo que tu academia usa, garantizando una velocidad de carga inferior a 1 segundo y un SEO mucho más potente.</p>
+                                No es obligatorio, pero realizaremos un **diagnóstico de rendimiento inicial**. Si tu servidor actual no garantiza la estabilidad necesaria para el volumen de alumnos que tienes, te recomendaremos las mejores opciones (Cloudways, SiteGround o VPS optimizados) y nos encargamos nosotros de toda la migración sin coste.
                             </div>
                         </div>
                     </div>
 
-                    <div class="accordion-item border mb-3 rounded-3 overflow-hidden shadow-sm" data-aos="fade-up" data-aos-delay="100">
-                        <h2 class="accordion-header" id="headingTwo">
-                            <button class="accordion-button collapsed fw-bold p-4" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                ¿Se puede integrar con plataformas como Moodle o Learndash?
+                    <!-- FAQ 2 -->
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed fw-bold py-4 px-4" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">
+                                ¿Cuánto tiempo tarda en verse el resultado de la optimización WPO?
                             </button>
                         </h2>
-                        <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionFAQ">
+                        <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#accordionFAQ">
                             <div class="accordion-body p-4 text-muted">
-                                <p>Totalmente. Me especializo en conectar WordPress con plataformas de formación online, pasarelas de pago y sistemas de facturación automática para que toda la gestión de alumnos sea "manos libres".</p>
+                                Los resultados en velocidad de carga son **inmediatos**. Una vez aplicamos la fase técnica (WebP, Caché de objetos, Minificación), notarás la diferencia en PageSpeed en menos de 48 horas. La mejora en conversiones suele reflejarse en el primer mes de uso por parte de los alumnos.
                             </div>
                         </div>
                     </div>
 
-                    <div class="accordion-item border mb-3 rounded-3 overflow-hidden shadow-sm" data-aos="fade-up" data-aos-delay="200">
-                        <h2 class="accordion-header" id="headingThree">
-                            <button class="accordion-button collapsed fw-bold p-4" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                ¿Qué pasa si mi web se rompe después del lanzamiento?
+                    <!-- FAQ 3 -->
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed fw-bold py-4 px-4" type="button" data-bs-toggle="collapse" data-bs-target="#faq3">
+                                ¿Mi material (PDFs y Vídeos) está seguro contra descargas no autorizadas?
                             </button>
                         </h2>
-                        <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionFAQ">
+                        <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#accordionFAQ">
                             <div class="accordion-body p-4 text-muted">
-                                <p>No te dejo solo. Ofrezco un servicio de mantenimiento premium donde superviso tu web 24/7, realizo copias de seguridad diarias y garantizo que siempre esté actualizada y segura.</p>
+                                Sí. Implementamos protocolos de **seguridad antidoma** y ofuscación de enlaces. Configuramos tus vídeos mediante servicios como Vimeo OTT o Bunny.net con restricciones de dominio para que solo puedan verse dentro de tu campus, evitando que se compartan enlaces externos.
                             </div>
                         </div>
                     </div>
 
-                    <div class="accordion-item border mb-3 rounded-3 overflow-hidden shadow-sm" data-aos="fade-up" data-aos-delay="300">
-                        <h2 class="accordion-header" id="headingFour">
-                            <button class="accordion-button collapsed fw-bold p-4" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-                                ¿Cuánto tiempo tarda en estar lista la web?
+                    <!-- FAQ 4 -->
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed fw-bold py-4 px-4" type="button" data-bs-toggle="collapse" data-bs-target="#faq4">
+                                ¿Hay algún tipo de permanencia en los planes de mantenimiento?
                             </button>
                         </h2>
-                        <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#accordionFAQ">
+                        <div id="faq4" class="accordion-collapse collapse" data-bs-parent="#accordionFAQ">
                             <div class="accordion-body p-4 text-muted">
-                                <p>Dependiendo de la complejidad, un desarrollo artesanal suele tardar entre 4 y 8 semanas. Mi prioridad es la calidad y la robustez técnica, no las soluciones "rápidas" que fallan a los dos meses.</p>
+                                **Ninguna**. Creemos en los resultados, no en las ataduras. Puedes darte de baja en cualquier momento avisando con 15 días de antelación. Nuestro objetivo es que te quedes porque tu academia funciona mejor que nunca, no por un contrato.
                             </div>
                         </div>
                     </div>
+
+                    <!-- FAQ 5 -->
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed fw-bold py-4 px-4" type="button" data-bs-toggle="collapse" data-bs-target="#faq5">
+                                ¿Ofrecéis soporte especial el día del examen o lanzamiento de cursos?
+                            </button>
+                        </h2>
+                        <div id="faq5" class="accordion-collapse collapse" data-bs-parent="#accordionFAQ">
+                            <div class="accordion-body p-4 text-muted">
+                                Absolutamente. En los planes **Profesional y Premium**, incluimos monitorización proactiva durante picos de tráfico esperados. Avisándonos con antelación, preparamos el servidor para escalar recursos y estamos "de guardia" para que nada falle en los momentos críticos de tu negocio.
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
+
+        <div class="text-center mt-5" data-aos="fade-up">
+            <p class="mb-4">¿Tienes una duda técnica más específica?</p>
+            <a href="https://wa.me/34664610640" class="btn btn-outline-dark px-4 py-2 fw-bold">CONSULTAR POR WHATSAPP</a>
+        </div>
     </div>
 </section>
-

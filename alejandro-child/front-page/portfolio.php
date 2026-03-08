@@ -7,7 +7,7 @@
     <div class="container">
         <div class="section-header" style="text-align: center; margin-bottom: 5rem;" data-aos="fade-up">
             <p style="color: var(--primary); font-weight: 800; text-transform: uppercase;">Mis trabajos recientes</p>
-            <h2 class="section-title">PORTFOLIO DE PROYECTOS</h2>
+            <h2 class="section-title">PROYECTOS DE DESARROLLO WORDPRESS LMS</h2>
             <p style="max-width: 700px; margin: 0 auto; color: var(--text-light);">Echa un vistazo a algunos de los sitios web que he desarrollado recientemente. Proyectos reales con resultados reales.</p>
         </div>
 

@@ -11,7 +11,7 @@ get_header(); ?>
 {
   "@context": "https://schema.org",
   "@type": "ProfessionalService",
-  "name": "Alejandro Freelancer - Desarrollador WordPress Premium",
+  "name": "ALEJANDRO.DEV - Desarrollador WordPress Premium",
   "image": "<?php echo get_stylesheet_directory_uri(); ?>/assets/img/alejandro.webp",
   "@id": "<?php echo home_url(); ?>",
   "url": "<?php echo home_url(); ?>",
@@ -20,8 +20,8 @@ get_header(); ?>
   "address": {
     "@type": "PostalAddress",
     "streetAddress": "[Tu Dirección]",
-    "addressLocality": "[Tu Ciudad]",
-    "postalCode": "[Tu CP]",
+    "addressLocality": "Tarragona",
+    "postalCode": "43720",
     "addressCountry": "ES"
   },
   "openingHoursSpecification": {
@@ -91,8 +91,10 @@ get_header(); ?>
         <?php
 
 
-        // 6. Sección Testimonios y Contacto (Cierre Obligatorio en Home)
-        get_template_part('front-page/contact-testimonials');
+        // 5.5 Sección FAQ (Cierre de objeciones)
+        get_template_part('front-page/faq');
+
+        // La sección de contacto se carga ahora globalmente desde footer.php
         
         ?>
 

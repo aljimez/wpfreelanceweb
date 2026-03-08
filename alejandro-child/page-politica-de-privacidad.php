@@ -8,7 +8,7 @@
 <head>
     <meta charset="<?php bloginfo('charset'); ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Política de Privacidad - Alejandro Freelancer</title>
+    <title>Política de Privacidad - Alejandro Jiménez</title>
     <?php wp_head(); ?>
     <link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/assets/css/front-page.css">
     <style>
@@ -54,8 +54,8 @@
             <p>La presente Política de Privacidad describe cómo se recogen, utilizan y comparten sus datos personales cuando visita este sitio web.</p>
 
             <h2>1. Responsable del Tratamiento</h2>
-            <p><strong>Identidad:</strong> Alejandro Freelancer</p>
-            <p><strong>Correo electrónico:</strong> ajimeneza01@gmail.com</p>
+            <p><strong>Identidad:</strong> Alejandro Jiménez</p>
+            <p><strong>Correo electrónico:</strong> ajimenezal01@gmail.com</p>
 
             <h2>2. Finalidad del Tratamiento de Datos</h2>
             <p>Tratamos la información que nos facilitan las personas interesadas con el fin de:</p>
@@ -78,6 +78,8 @@
         </article>
     </main>
 
+    <?php get_template_part('front-page/contact-testimonials'); ?>
+
     <footer class="site-footer" style="padding: 60px 0; text-align: center; border-top: 1px solid var(--border-color); background: var(--bg-alt);">
         <div class="container">
             <p style="font-weight: 700; margin-bottom: 1rem;">ALEJANDRO<span>.DEV</span></p>
@@ -86,7 +88,7 @@
                 <a href="/politica-de-privacidad" style="text-decoration: none; color: var(--text-light); font-size: 0.85rem;">Política de Privacidad</a>
                 <a href="/politica-de-cookies" style="text-decoration: none; color: var(--text-light); font-size: 0.85rem;">Política de Cookies</a>
             </div>
-            <p style="color: var(--text-light); font-size: 0.85rem;">&copy; <?php echo date('Y'); ?> Alejandro Freelancer. Todos los derechos reservados.</p>
+            <p style="color: var(--text-light); font-size: 0.85rem;">&copy; <?php echo date('Y'); ?> Alejandro Jiménez. Todos los derechos reservados.</p>
         </div>
     </footer>
 
