@@ -7,7 +7,7 @@ get_header(); ?>
 <main id="primary" class="site-main">
     <section class="page-header py-5 bg-dark text-white text-center">
         <div class="container py-5">
-            <h1 class="display-3 fw-bold mb-3">CONVIERTETE EN CEO</h1>
+            <h1 class="display-3 fw-bold mb-3 text-white">CONVIERTETE EN CEO</h1>
             <p class="lead opacity-75">Domina los cimientos técnicos para que tu LMS deje de ser un juguete y sea un negocio.</p>
         </div>
     </section>
