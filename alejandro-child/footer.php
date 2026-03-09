@@ -32,6 +32,16 @@
     </a>
     <?php endif; ?>
 
+    <!-- Sticky Desktop CTA (Solo en Home) -->
+    <?php if ( is_front_page() ) : ?>
+    <div id="sticky-desktop-cta" class="sticky-desktop-cta d-none d-lg-flex">
+        <a href="#contacto" class="btn btn-primary shadow-lg fw-bold d-flex align-items-center gap-2 px-4 py-3">
+            <span class="fs-4">🎁</span>
+            AUDITORÍA GRATUITA
+        </a>
+    </div>
+    <?php endif; ?>
+
     <!-- Exit Intent Popup (SEO & Conversion) -->
     <div id="exit-popup" class="exit-popup">
         <div class="exit-popup-content position-relative p-5 rounded-4 shadow-2xl text-center bg-white" style="max-width: 500px; border: 4px solid var(--primary);">
@@ -264,6 +274,16 @@
                 const bubble = document.getElementById('whatsapp-bubble');
                 if (bubble) bubble.style.display = 'block';
             }, 6000);
+
+            // --- STICKY DESKTOP CTA LOGIC ---
+            const stickyCta = document.getElementById('sticky-desktop-cta');
+            window.addEventListener('scroll', function() {
+                if (window.scrollY > 400) {
+                    if (stickyCta) stickyCta.classList.add('active');
+                } else {
+                    if (stickyCta) stickyCta.classList.remove('active');
+                }
+            });
 
             // --- MOBILE MENU BEHAVIOR ---
             const navLinks = document.querySelectorAll('.navbar-nav .nav-link, .nav-cta');
